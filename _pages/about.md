@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: Indie Researcher | MSc. | Immersed in Game Theory | Retired Esports Athlete
 
 profile:
   align: right
