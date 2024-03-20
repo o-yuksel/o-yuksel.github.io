@@ -9,7 +9,7 @@ last_name: Yüksel
 email: ozguryuksel@live.com
 description:  # the ">" symbol means to ignore newlines until "footer_text:"
 
-footer_text: text
+footer_text:
 
 keywords: ozguryuksel, ozgur, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
