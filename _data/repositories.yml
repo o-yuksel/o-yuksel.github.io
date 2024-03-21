@@ -1,12 +1,6 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - o-yuksel
 
 github_repos:
-  - alshedivat/al-folio
+  - o-yuksel
   - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
