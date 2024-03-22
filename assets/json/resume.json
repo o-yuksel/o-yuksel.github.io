@@ -27,14 +27,15 @@
     {
       "institution": "Yeditepe University, Istanbul, Turkey",
       "location": "Istanbul, Turkey",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
-      "studyType": "PhD",
-      "startDate": "1905-01-01",
-      "endDate": "1905-01-01",
-      "score": "10",
+      "url": "https://yeditepe.edu.tr/en",
+      "area": "Biotechnology",
+      "studyType": "MSc",
+      "startDate": "2018-07",
+      "endDate": "2021-12",
+      "score": "",
       "courses": ["Theory of Relativity"]
     }
+
   ],
   "awards": [
     {
