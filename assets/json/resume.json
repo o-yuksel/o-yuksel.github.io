@@ -33,31 +33,28 @@
       "startDate": "2018-07",
       "endDate": "2021-12",
       "score": "",
-      "courses": ["Theory of Relativity"]
+      "courses": ["Systems Biology, Ecology, Biostatistics"]
     }
 
   ],
   "awards": [
     {
-      "title": "Nobel Prize in Physics",
-      "date": "1921-11-01",
-      "awarder": "Royal Swedish Academy of Sciences",
-      "url": "https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/",
-      "summary": "The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'"
+      "title": "High Honour Student",
+      "date": "2021-12",
+      "awarder": "Yeditepe University",
     }
   ],
   "certificates": [
     {
-      "name": "Machine Learning",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "Aikido Shodan",
+      "date": "2019-03-03",
+      "issuer": "Certified by Hombu Dojo Tokyo Japan",
       "icon": "fa-solid fa-location-dot"
     },
     {
-      "name": "Quantum Computing",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
+      "name": "Duolingo English Certificate Advanced, Score 135",
+      "date": "2023-12",
+      "issuer": "Duolingo",
       "url": "https://example.com",
       "icon": "fa-solid fa-tag"
     },
