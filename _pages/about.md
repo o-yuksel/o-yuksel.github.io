@@ -4,7 +4,7 @@ title: about
 permalink: /
 subtitle: Indie Researcher | MSc. | Immersed in Game Theory | Retired Esports Athlete
 
-profile: 
+profile:
   align: right
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
@@ -20,5 +20,4 @@ social: true # includes social icons at the bottom of the page
 projects: true #
 ---
 
-
-My passion for exploring nature and understanding my place within it drives me as a dedicated scientist..
+Welcome! I'm Özgür, an M.Sc. graduate in Biotechnology from Yeditepe University, Istanbul. My passion for exploring nature and understanding my place within it drives me as a dedicated scientist. I am committed to expanding my knowledge with the goal of elucidating the fundamental factors driving evolution and developing mathematical models that accurately capture these mechanisms.
