@@ -20,4 +20,4 @@ social: true # includes social icons at the bottom of the page
 projects: true #
 ---
 
-Welcome! I'm **Özgür**, an **M.Sc.** graduate in Biotechnology from **Yeditepe University, Istanbul**. My passion for exploring nature and understanding my place within it drives me as a dedicated scientist. I am committed to expanding my knowledge with the goal of elucidating the fundamental factors driving **evolution** and developing **mathematical models** that accurately capture these mechanisms.
+Welcome! I'm **Özgür**, an **M.Sc.** graduate in Biotechnology from [**Yeditepe University, Istanbul**](https://fbe.yeditepe.edu.tr/en). My passion for exploring nature and understanding my place within it drives me as a dedicated scientist. I am committed to expanding my knowledge with the goal of elucidating the fundamental factors driving **evolution** and developing **mathematical models** that accurately capture these mechanisms.
