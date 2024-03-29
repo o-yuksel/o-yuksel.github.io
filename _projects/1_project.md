@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Gradual Evolution of Cancer into Resistant States
-description: assets\img\publication_preview\nsclctosclc3.gif
-img: assets\img\publication_preview\nsclctosclc3.gif
+description:
+img: assets\img\publication_preview\nsclcs.webp
 importance: 1
 category: work
 related_publications: false
