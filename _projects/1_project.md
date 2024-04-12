@@ -10,22 +10,6 @@ related_publications: false
 
 Gradual Evolution of Cancer into Resistant States
 
-#    ---
-#    layout: page
-#    title: project
-#    description: a project with a background image
-#    img: /assets/img/publication_preview/nsclcs.webp
-    ---
-
-#
-<div class="row">
-#    <div class="col-sm mt-3 mt-md-0">
-#        {% include figure.liquid path="assets/img/publication_preview/nsclcs.webp" title="example image" class="img-fluid rounded z-depth-1" %}
-#    </div>
-#</div>
-#<div class="caption">
-#    This image can also have a caption. It's like magic.
-#</div>
 
 You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
 Say you wanted to write a bit about your project before you posted the rest of the images.
