@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Speciation
+title: Exploring Cancer's Evolutionary Landscape, Speciation and Hopeful Monsters
 description:
 img: assets/img/publication_preview/speciation.webp
 importance: 1
