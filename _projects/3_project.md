@@ -3,7 +3,7 @@ layout: page
 title: Stable state finder
 description:
 img: assets\img\publication_preview\stable.webp
-importance: 1
+importance: 2
 category: work
 related_publications: false
 
