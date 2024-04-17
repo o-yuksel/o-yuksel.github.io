@@ -2,7 +2,7 @@
 layout: page
 title: Stable state finder
 description:
-img: assets\img\publication_preview\stable.webp
+img: assets\img\publication_preview\speciation.webp
 importance: 1
 category: work
 related_publications: false
