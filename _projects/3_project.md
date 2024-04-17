@@ -2,8 +2,8 @@
 layout: page
 title: Stable state finder
 description:
-img: assets\img\publication_preview\stable.webp
-importance: 2
+img: assets/img/publication_preview/stable.webp
+importance: 1
 category: work
 related_publications: false
 
