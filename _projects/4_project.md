@@ -48,7 +48,7 @@ Recreate complete adult phenotypic patterns accurately from Partial or corrupted
     </div>
 </div>
 <div class="caption">
-    Blue strategy starts with %99 frequency in the first subplot, %1 frequency in the second. The arrow indicates the frequency that current simulation (xy plane) partakes in.
+    Populations indicated in green and red share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2, with its evolution is traceable through the apperent compression of landscapes.
 </div>
 <div class="">
 </div>
