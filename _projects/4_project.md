@@ -14,10 +14,7 @@ How ecologically relevant (Qualitative) types arise from vast space of quantitat
 
 Introduce developmental mechanisms into well-defined evolutionary models as both enabling and disabling constraints.
 
-To construct new models that incorporate
-trait variation
-non-linear trait correlations
-frequency-dependent fitness
+To construct new models that incorporate; trait variation, non-linear trait correlations, frequency-dependent fitness
 
 Players will acquire abilities; e.g. recalling and innovate their own strategies with previous associations.
 
