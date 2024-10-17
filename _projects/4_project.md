@@ -18,9 +18,11 @@ During development, organisms form a distributed associative memory that allows 
 In this work, I aim to develop new models that incorporate trait variation, non-linear trait correlations, and frequency-dependent fitness. My hypothesis is that players will acquire abilities, such as recalling and innovating their own strategies, by leveraging previous associations.
 
 In this example, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
-  <div class="col-sm-4 mt-3 mt-md-0">
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
     {% include figure.liquid path="assets/img/publication_preview/lvbigbully.webp" title="LV" class="img-fluid rounded z-depth-1" %}
-  </div>
+    </div>
+</div>
 <div class="caption">
     The sizes of the populations are represented by the diameters of their corresponding circles.
 </div>
