@@ -2,7 +2,7 @@
 layout: page
 title: Self developing strategies with trait correlations in adaptive landscapes
 description:
-img: assets/img/publication_preview/nonlinear4.webp
+img: assets/img/publication_preview/long.webp
 importance: 1
 category: work
 related_publications: false
@@ -24,7 +24,7 @@ I've integrated developmental memory into the model, allowing the correlation be
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/publication_preview/nonlinear4.webp" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/publication_preview/long.webp" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
