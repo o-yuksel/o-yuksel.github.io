@@ -28,7 +28,7 @@ I've integrated developmental memory into the model, allowing the correlation be
     </div>
 </div>
 <div class="caption">
-    Populations indicated in green and red share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2, with its evolution is traceable through the apperent compression of landscapes.
+    Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
 </div>
 <div class="">
 </div>
