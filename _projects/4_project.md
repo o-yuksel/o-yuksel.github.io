@@ -9,7 +9,9 @@ related_publications: false
 
 ---
 
-How ecologically relevant (Qualitative) types arise from vast space of quantitative field of genotypes? (e.g. De-novo mutations in cancer)
+This project explores how developmental mechanisms shape trait correlations in evolutionary models, with a focus on adaptive landscapes and frequency-dependent fitness.
+
+How do ecologically relevant qualitative traits emerge from the vast quantitative space of genotypes? (e.g. De-novo mutations in cancer).
 
 Introducing developmental mechanisms into well-defined evolutionary models, both as enabling and disabling constraints, may provide valuable insights and help us find the answers we seek.
 
@@ -27,8 +29,9 @@ During development, organisms form a distributed associative memory that allows 
 
 
 In this work, I aim to develop new models that incorporate trait variation, non-linear trait correlations, and frequency-dependent fitness. My hypothesis is that players will acquire abilities, such as recalling and innovating their own strategies, by leveraging previous associations.
+This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
 
-In this example, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
+As my template, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
     {% include figure.liquid path="assets/img/publication_preview/lvbigbully.webp" title="LV" class="img-fluid rounded z-depth-1" %}
@@ -64,8 +67,8 @@ In the second scenario, the blue population starts from a more distant point. As
 <div class="">
 </div>
 
+By integrating developmental memory and trait correlations, this research opens new pathways for understanding how populations evolve complex strategies over time. These models can be applied in diverse fields to better understand and predict the direction of evolution.
+
 References
 
-How Can Evolution Learn?
-Watson, Richard A. et al.
-Trends in Ecology & Evolution, Volume 31, Issue 2, 147 - 157
+Watson, R.A. and Szathmáry, E. (2016) ‘How can evolution learn?’, Trends in Ecology &amp; Evolution, 31(2), pp. 147–157. doi:10.1016/j.tree.2015.11.009.
