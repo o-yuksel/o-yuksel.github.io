@@ -75,11 +75,13 @@ B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
 $$
 
 Population dynamics:
+
 $$
 \frac{dx_i}{dt} = x_i \cdot G \big|_{\mathbf{v} = \mathbf{u}_i}
 $$
 
 Strategy dynamics:
+
 $$
 \frac{du_i}{dt} = \sigma_i^2 \frac{\partial G}{\partial \mathbf{v}} \big|_{\mathbf{v} = \mathbf{u}_i}
 $$
@@ -97,13 +99,13 @@ $$
 
 I've integrated developmental memory into the model, allowing the correlation between traits to be stored as populations evolve toward more optimal conditions. This stored information shapes the future evolution of the populations, reflected as the planes that represent nearby mutants constricts and rotates.
 
-Single step G-P mapping:
+Single step non-linear G-P mapping:
 
 $$
 p_{u_i} = u_i + \tau_1 \tanh(c \cdot u_j) - \tau_2 u_i
 $$
 
-Dynamics for trait correlations:
+Additional dynamics for trait correlation:
 
 $$
 \frac{dc}{dt} = (0.066 \cdot \sigma_i^2) \frac{dG}{dc}
