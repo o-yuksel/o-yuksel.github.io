@@ -32,6 +32,21 @@ In this work, I aim to develop new models that incorporate trait variation, non-
 This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
 
 As my template, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid path="assets/img/eq1.png" title="LV" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/eq2.png" title="LV" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/eq3.png" title="LV" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/eq4.png" title="LV" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Figure 1. A Recurrent Gene Regulation Network (GRN) Evolved in a Dynamic Environment Demonstrates Associative Learning (Richard A. Watson1 and Eörs Szathmáry, 2016). (A–D) The GRN evolves to alternate between phenotypes: A (Charles Darwin) and B (Donald Hebb). The phenotypes are not averages of prior patterns but instead distinct adult forms from random embryonic states (C, D), each matching A or B. These phenotypes can differ by just a single mutation. (E–J) In another experiment, the GRN is exposed to multiple target phenotypes (E–H). It not only replicates past phenotypes (e.g., I) but also produces novel combinations (e.g., J). This demonstrates evolution’s ability to generate new phenotypes, akin to how neural networks generalize from prior learning.
+</div>
+<div class="">
+</div>
+
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
     {% include figure.liquid path="assets/img/publication_preview/lvbigbully.webp" title="LV" class="img-fluid rounded z-depth-1" %}
