@@ -36,6 +36,7 @@ As my template, two identical populations engage in a Lotka-Volterra Big Bully G
 $$
 G(\mathbf{v}, \mathbf{u}, \mathbf{x}) = \frac{r}{K(\mathbf{v})} \left[ K(\mathbf{v}) - \sum_{j=1}^r a(\mathbf{v}, \mathbf{u}_j) x_j \right]
 $$
+
 $$
 K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
 $$
