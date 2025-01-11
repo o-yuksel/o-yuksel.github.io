@@ -42,7 +42,6 @@ As my template, two identical populations engage in a Lotka-Volterra Big Bully G
     </div>
 </div>
 <div class="caption">
-    Figure 1. A Recurrent Gene Regulation Network (GRN) Evolved in a Dynamic Environment Demonstrates Associative Learning (Richard A. Watson1 and Eörs Szathmáry, 2016). (A–D) The GRN evolves to alternate between phenotypes: A (Charles Darwin) and B (Donald Hebb). The phenotypes are not averages of prior patterns but instead distinct adult forms from random embryonic states (C, D), each matching A or B. These phenotypes can differ by just a single mutation. (E–J) In another experiment, the GRN is exposed to multiple target phenotypes (E–H). It not only replicates past phenotypes (e.g., I) but also produces novel combinations (e.g., J). This demonstrates evolution’s ability to generate new phenotypes, akin to how neural networks generalize from prior learning.
 </div>
 <div class="">
 </div>
