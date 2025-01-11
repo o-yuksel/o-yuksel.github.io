@@ -96,13 +96,16 @@ $$
 
 I've integrated developmental memory into the model, allowing the correlation between traits to be stored as populations evolve toward more optimal conditions. This stored information shapes the future evolution of the populations, reflected as the planes that represent nearby mutants constricts and rotates.
 
-single-step genotype-phenotype (G-P) mapping using the formula:
-$$
-\( p_{u_i} = u_i + \tau_1 \tanh(c \cdot u_j) - \tau_2 u_i \)
-$$
+Single step G-P mapping:
 
 $$
-\( c \): \( \frac{dc}{dt} = (0.066 \cdot \sigma_i^2) \frac{dG}{dc} \)
+p_{u_i} = u_i + \tau_1 \tanh(c \cdot u_j) - \tau_2 u_i
+$$
+
+Dynamics for \( c \):
+
+$$
+\frac{dc}{dt} = (0.066 \cdot \sigma_i^2) \frac{dG}{dc}
 $$
 
 In the first scenario, the traits of the populations are near their equilibrium points, resulting in little to no evolution of trait correlations.
