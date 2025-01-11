@@ -49,18 +49,26 @@ $$
 B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
 $$
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/eq1.png" title="LV" class="img-fluid rounded z-depth-1" %}
-    {% include figure.liquid path="assets/img/eq2.png" title="LV" class="img-fluid rounded z-depth-1" %}
-    {% include figure.liquid path="assets/img/eq3.png" title="LV" class="img-fluid rounded z-depth-1" %}
-    {% include figure.liquid path="assets/img/eq4.png" title="LV" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-</div>
-<div class="">
-</div>
+# G-function / Darwinian dynamics
+
+The struggle for existence is given by the fitness-generating function:
+
+$$
+G(\mathbf{v}, \mathbf{u}, \mathbf{x}) \big|_{\mathbf{v} = \mathbf{u}_i}
+$$
+
+- **Strategies**: \( \mathbf{v} \)
+- **Population densities**: \( \mathbf{x} \)
+
+## Population dynamics:
+$$
+\frac{dx_i}{dt} = x_i \cdot G \big|_{\mathbf{v} = \mathbf{u}_i}
+$$
+
+## Strategy dynamics:
+$$
+\frac{du_i}{dt} = \sigma_i^2 \frac{\partial G}{\partial \mathbf{v}} \big|_{\mathbf{v} = \mathbf{u}_i}
+$$
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
