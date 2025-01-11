@@ -39,16 +39,15 @@ $$
 $$
 K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
 $$
-<div class="caption">Carrying capacity takes on a maximum value at v =0.The variance oft his distribution, σ2 k , determines the severity with which an individual loses carrying capacity as its strategy deviates from v = 0. With a larger variance, the individual suffers less from a deviation. The term β introduces an asymmetry into the competition. When β>0, an individual with a larger value for v1 has a larger negative effect on an individual with a smaller v1.</div>
+<div class="caption">Carrying capacity takes on a maximum value at v =0.The variance oft his distribution, σ2 k , determines the severity with which an individual loses carrying capacity as its strategy deviates from v = 0. With a larger variance, the individual suffers less from a deviation. </div>
 $$
 a(\mathbf{v}, \mathbf{u}_j) = 1 + B_j \exp \left[ -\frac{(v_1 - u_{j1} + \beta)^2}{2\sigma_a^2} \right] - \exp \left[ -\frac{\beta^2}{2\sigma_a^2} \right]
 $$
-The competition term is a normal distribution with respect to v and takes on a maximum when v =uj. Its variance, σ2 a, determines how quickly the competition coefficient changes a scompetitors deviate in their strategy values. A large variance means that the competition coefficient changes slowly with changes in v.
+<div class="caption">The competition term is a normal distribution with respect to v and takes on a maximum when v =uj. Its variance, σ2 a, determines how quickly the competition coefficient changes a scompetitors deviate in their strategy values. A large variance means that the competition coefficient changes slowly with changes in v. The term β introduces an asymmetry into the competition. When β>0, an individual with a larger value for v1 has a larger negative effect on an individual with a smaller v1.</div>
 $$
 B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
 $$
-The bully function, describes forms of competition where being slightly larger than your neighbor confers a competitive
- advantage by reducing the negative effects of others and increasing one’s own negative effect on others.
+<div class="caption">The bully function, describes forms of competition where being slightly larger than your neighbor confers a competitive advantage by reducing the negative effects of others and increasing one’s own negative effect on others.</div>
 
 # G-function / Darwinian dynamics
 
