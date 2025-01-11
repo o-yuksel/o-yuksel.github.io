@@ -34,12 +34,17 @@ This work pioneers models that integrate developmental memory and nonlinear trai
 As my template, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
 # Lotka-Volterra Big Bully Game
 
-$$
-G(\mathbf{v}, \mathbf{u}, \mathbf{x}) = \frac{r}{K(\mathbf{v})} \left[ K(\mathbf{v}) - \sum_{j=1}^r a(\mathbf{v}, \mathbf{u}_j) x_j \right]
-$$
+The struggle for existence is given by the fitness-generating function (G-function / Darwinian dynamics)
+
+<details>
+ <summary>General form</summary>
+ $$
+  G(\mathbf{v}, \mathbf{u}, \mathbf{x}) \big|_{\mathbf{v} = \mathbf{u}_i}
+ $$
+</details>
 
 $$
-K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
+G(\mathbf{v}, \mathbf{u}, \mathbf{x}) = \frac{r}{K(\mathbf{v})} \left[ K(\mathbf{v}) - \sum_{j=1}^r a(\mathbf{v}, \mathbf{u}_j) x_j \right]
 $$
 
 <details>
@@ -48,37 +53,33 @@ $$
 </details>
 
 $$
-a(\mathbf{v}, \mathbf{u}_j) = 1 + B_j \exp \left[ -\frac{(v_1 - u_{j1} + \beta)^2}{2\sigma_a^2} \right] - \exp \left[ -\frac{\beta^2}{2\sigma_a^2} \right]
+K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
 $$
 
 <details>
  <summary>Competition term</summary>
  The competition term is a normal distribution with respect to v and takes on a maximum when v =uj. Its variance, σ2 a, determines how quickly the competition coefficient changes a scompetitors deviate in their strategy values. A large variance means that the competition coefficient changes slowly with changes in v. The term β introduces an asymmetry into the competition. When β>0, an individual with a larger value for v1 has a larger negative effect on an individual with a smaller v1.
 </details>
-    
+
 $$
-B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
+a(\mathbf{v}, \mathbf{u}_j) = 1 + B_j \exp \left[ -\frac{(v_1 - u_{j1} + \beta)^2}{2\sigma_a^2} \right] - \exp \left[ -\frac{\beta^2}{2\sigma_a^2} \right]
 $$
 
 <details>
  <summary>The bully function</summary>
  The bully function, describes forms of competition where being slightly larger than your neighbor confers a competitive advantage by reducing the negative effects of others and increasing one’s own negative effect on others.
 </details>
-    
-# G-function / Darwinian dynamics
-
-The struggle for existence is given by the fitness-generating function:
 
 $$
-G(\mathbf{v}, \mathbf{u}, \mathbf{x}) \big|_{\mathbf{v} = \mathbf{u}_i}
+B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
 $$
 
-## Population dynamics:
+Population dynamics:
 $$
 \frac{dx_i}{dt} = x_i \cdot G \big|_{\mathbf{v} = \mathbf{u}_i}
 $$
 
-## Strategy dynamics:
+Strategy dynamics:
 $$
 \frac{du_i}{dt} = \sigma_i^2 \frac{\partial G}{\partial \mathbf{v}} \big|_{\mathbf{v} = \mathbf{u}_i}
 $$
