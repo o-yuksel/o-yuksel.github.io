@@ -102,7 +102,7 @@ $$
 p_{u_i} = u_i + \tau_1 \tanh(c \cdot u_j) - \tau_2 u_i
 $$
 
-Dynamics for \( c \):
+Dynamics for trait correlations:
 
 $$
 \frac{dc}{dt} = (0.066 \cdot \sigma_i^2) \frac{dG}{dc}
