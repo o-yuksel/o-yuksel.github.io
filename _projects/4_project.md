@@ -47,8 +47,6 @@ $$
  Carrying capacity takes on a maximum value at v =0.The variance oft his distribution, σ2 k , determines the severity with which an individual loses carrying capacity as its strategy deviates from v = 0. With a larger variance, the individual suffers less from a deviation.
 </details>
 
-
-
 $$
 a(\mathbf{v}, \mathbf{u}_j) = 1 + B_j \exp \left[ -\frac{(v_1 - u_{j1} + \beta)^2}{2\sigma_a^2} \right] - \exp \left[ -\frac{\beta^2}{2\sigma_a^2} \right]
 $$
@@ -61,10 +59,12 @@ $$
 $$
 B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
 $$
+
 <details>
  <summary>The bully function</summary>
 The bully function, describes forms of competition where being slightly larger than your neighbor confers a competitive advantage by reducing the negative effects of others and increasing one’s own negative effect on others.</div>
 <details>
+    
 # G-function / Darwinian dynamics
 
 The struggle for existence is given by the fitness-generating function:
