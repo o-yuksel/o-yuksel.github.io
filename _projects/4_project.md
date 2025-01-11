@@ -33,6 +33,22 @@ This work pioneers models that integrate developmental memory and nonlinear trai
 
 As my template, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
 
+$$
+G(\mathbf{v}, \mathbf{u}, \mathbf{x}) = \frac{r}{K(\mathbf{v})} \left[ K(\mathbf{v}) - \sum_{j=1}^r a(\mathbf{v}, \mathbf{u}_j) x_j \right]
+$$
+
+$$
+K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
+$$
+
+$$
+a(\mathbf{v}, \mathbf{u}_j) = 1 + B_j \exp \left[ -\frac{(v_1 - u_{j1} + \beta)^2}{2\sigma_a^2} \right] - \exp \left[ -\frac{\beta^2}{2\sigma_a^2} \right]
+$$
+
+$$
+B_j = 1 + B_{\text{max}} (u_{j2} - v_2)
+$$
+
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
     {% include figure.liquid path="assets/img/eq1.png" title="LV" class="img-fluid rounded z-depth-1" %}
