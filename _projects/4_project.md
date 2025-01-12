@@ -31,10 +31,10 @@ During development, organisms form a distributed associative memory that allows 
 In this work, I aim to develop new models that incorporate trait variation, non-linear trait correlations, and frequency-dependent fitness. My hypothesis is that players will acquire abilities, such as recalling and innovating their own strategies, by leveraging previous associations.
 This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
 
-As my template, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
+As my template, two identical populations engage in a Lotka-Volterra Big Bully Game (Vincent and Brown, 2005) within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
 ### Lotka-Volterra Big Bully Game
 
-The struggle for existence is given by the fitness-generating function (G-function / Darwinian dynamics)
+The struggle for existence is given by the fitness-generating function (G-function / Darwinian dynamics) "The G function describes the per capita growth rate of individuals of an evolutionarily identical group, removing the need to define different functions for evolutionarily identical individuals that use different strategies." (Bukkuri and Brown, 2021)
 
 <details>
  <summary>General form</summary>
@@ -137,11 +137,12 @@ In the second scenario, the blue population starts from a more distant point. As
 
 ### Conclusion
 
-In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I have stuck to a two-trait game and added a third trait as their correlation for simplicity. Although this combination achieved both frequency-dependent and developmental dynamics, it can only encompass two genetic traits instead of the 32 traits that make up the images of Charles Darwin and Donald Hebb. Therefore, we do not observe modular strategy shifts and novel combinations of traits being utilized. We need models of frequency-dependence that encompass a broader range of traits. However, it's problematic to conclude the relationship between many traits.
+In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I focused on a two-trait game and added a third trait as their correlation for simplicity. Although this combination successfully captured both frequency-dependent and developmental dynamics, it was limited to two genetic traits, falling short of encompassing the 32 traits that make up the images of Charles Darwin and Donald Hebb. Consequently, we do not observe modular strategy shifts or the utilization of novel trait combinations. To capture such phenomena, we need frequency-dependent models that account for a broader range of traits, enabling the emergence of novel combinations, correlations, and the apparent strategies observed empirically.
 
-
-By integrating developmental memory and trait correlations, this research opens new pathways for understanding how populations evolve complex strategies over time. These models can be applied in diverse fields to better understand and predict the direction of evolution.
 
 References
 
 Watson, R.A. and Szathmáry, E. (2016) ‘How can evolution learn?’, Trends in Ecology &amp; Evolution, 31(2), pp. 147–157. doi:10.1016/j.tree.2015.11.009.
+Bukkuri, A. and Brown, J.S. (2021) ‘Evolutionary game theory: Darwinian dynamics and the g function approach’, Games, 12(4). Available at: https://doi.org/10.3390/g12040072.
+Vincent, T.L. and Brown, J.S. (2005) Evolutionary Game Theory, Natural Selection, and Darwinian Dynamics. Cambridge: Cambridge University Press. Available at: https://doi.org/10.1017/CBO9780511542633.
+Watson, R.A. et al. (2014) ‘The Evolution Of Phenotypic Correlations And “Developmental Memory”’, Evolution, 68(4), pp. 1124–1138. Available at: https://doi.org/10.1111/evo.12337.
