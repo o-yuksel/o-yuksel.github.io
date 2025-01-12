@@ -139,7 +139,7 @@ In the second scenario, the blue population starts from a more distant point. As
 
 ### Conclusion
 
-Here we observe [![developmental bias]](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1)
+Here we observe [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1)
 
 
 In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I focused on a two-trait game and added a third trait as their correlation for simplicity. Although this combination successfully captured both frequency-dependent and developmental dynamics, it was limited to two genetic traits, falling short of encompassing the 32 traits that make up the images of Charles Darwin and Donald Hebb. Consequently, we do not observe modular strategy shifts or the utilization of novel trait combinations. To capture such phenomena, we need frequency-dependent models that account for a broader range of traits, enabling the emergence of novel combinations, correlations, and the apparent strategies observed empirically.
