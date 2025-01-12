@@ -43,16 +43,18 @@ The struggle for existence is given by the fitness-generating function (G-functi
  $$
 </details>
 
+
 $$
 G(\mathbf{v}, \mathbf{u}, \mathbf{x}) = \frac{r}{K(\mathbf{v})} \left[ K(\mathbf{v}) - \sum_{j=1}^r a(\mathbf{v}, \mathbf{u}_j) x_j \right]
 $$
+
+Vector-valued strategy has two components. The first component influences both the **carrying capacity** and the **competition coefficient** .The second component, v2, influences both the carrying capacity and the competition coefficients via a **“bully” function**.
 
 <details>
  <summary>Carrying capacity</summary>
  Carrying capacity takes on a maximum value at v =0.The variance oft his distribution, σ2 k , determines the severity with which an individual loses carrying capacity as its strategy deviates from v = 0. With a larger variance, the individual suffers less from a deviation.
 </details>
 
-Explain what traits are for
 
 $$
 K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
@@ -60,7 +62,7 @@ $$
 
 <details>
  <summary>Competition term</summary>
- The competition term is a normal distribution with respect to v and takes on a maximum when v =uj. Its variance, σ2 a, determines how quickly the competition coefficient changes a scompetitors deviate in their strategy values. A large variance means that the competition coefficient changes slowly with changes in v. The term β introduces an asymmetry into the competition. When β>0, an individual with a larger value for v1 has a larger negative effect on an individual with a smaller v1.
+ The competition term is a normal distribution with respect to v and takes on a maximum when v =uj. Its variance, σ2 a, determines how quickly the competition coefficient changes as competitors deviate in their strategy values. A large variance means that the competition coefficient changes slowly with changes in v. The term β introduces an asymmetry into the competition. When β>0, an individual with a larger value for v1 has a larger negative effect on an individual with a smaller v1.
 </details>
 
 $$
