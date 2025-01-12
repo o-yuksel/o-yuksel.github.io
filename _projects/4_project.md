@@ -139,7 +139,8 @@ In the second scenario, the blue population starts from a more distant point. As
 
 ### Conclusion
 
-Here we observe developmental bias <details>
+Here we observe developmental bias 
+<details>
  <summary>(For more info)</summary>
  {% include figure.liquid path="assets/img/devbias.jpg" title="developmental bias" class="img-fluid rounded z-depth-1" %}
 </details>
