@@ -32,7 +32,7 @@ In this work, I aim to develop new models that incorporate trait variation, non-
 This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
 
 As my template, two identical populations engage in a Lotka-Volterra Big Bully Game within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
-# Lotka-Volterra Big Bully Game
+### Lotka-Volterra Big Bully Game
 
 The struggle for existence is given by the fitness-generating function (G-function / Darwinian dynamics)
 
@@ -51,6 +51,8 @@ $$
  <summary>Carrying capacity</summary>
  Carrying capacity takes on a maximum value at v =0.The variance oft his distribution, σ2 k , determines the severity with which an individual loses carrying capacity as its strategy deviates from v = 0. With a larger variance, the individual suffers less from a deviation.
 </details>
+
+Explain what traits are for
 
 $$
 K(\mathbf{v}) = (1 - v_2^2) K_{\text{max}} \exp \left( -\frac{v_1^2}{2\sigma_k^2} \right)
@@ -132,6 +134,11 @@ In the second scenario, the blue population starts from a more distant point. As
 </div>
 <div class="">
 </div>
+
+### Conclusion
+
+In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I have stuck to a two-trait game and added a third trait as their correlation for simplicity. Although this combination achieved both frequency-dependent and developmental dynamics, it can only encompass two genetic traits instead of the 32 traits that make up the images of Charles Darwin and Donald Hebb. Therefore, we do not observe modular strategy shifts and novel combinations of traits being utilized. We need models of frequency-dependence that encompass a broader range of traits. However, it's problematic to conclude the relationship between many traits.
+
 
 By integrating developmental memory and trait correlations, this research opens new pathways for understanding how populations evolve complex strategies over time. These models can be applied in diverse fields to better understand and predict the direction of evolution.
 
