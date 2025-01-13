@@ -27,11 +27,13 @@ During development, organisms form a distributed associative memory that allows 
 <div class="">
 </div>
 
-
 In this work, I aim to develop new models that incorporate trait variation, non-linear trait correlations, and frequency-dependent fitness. My hypothesis is that players will acquire abilities, such as recalling and innovating their own strategies, by leveraging previous associations.
 This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
 
-As my template, two identical populations engage in a Lotka-Volterra Big Bully Game (Vincent and Brown, 2005) within a symmetrical setting. The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
+For this preliminary work, I limit myself to 2 traits instead of 42 traits that make up Charles Darwin and Donald Hebb's picture. Therefore, I will postpone the desired effects of modularity, such as the use of novel combinations. The problem becomes apparent when there is a game, and the traits have a bearing on each other. We have to clarify how some traits affect others, etc. Therefore, for now, my aim is to create a game where there are genotype and phenotype levels and a non-linear transformation in between.
+
+Here I use two trait Loka-Volterra Big Bully Game as my template, (Vincent and Brown, 2005). The initial traits and sizes of these populations determine how they impact one another—for instance, a larger population tends to bully the smaller one. 
+
 ### Lotka-Volterra Big Bully Game
 
 The struggle for existence is given by the fitness-generating function (G-function / Darwinian dynamics) "The G function describes the per capita growth rate of individuals of an evolutionarily identical group, removing the need to define different functions for evolutionarily identical individuals that use different strategies." (Bukkuri and Brown, 2021)
@@ -96,7 +98,7 @@ $$
     </div>
 </div>
 <div class="caption">
-   Figure 2. The sizes of the populations are represented by the diameters of their corresponding circles.
+   Figure 2. The Lotka-Volterra Big Bully Game.  The sizes of the populations are represented by the diameters of their corresponding circles.
 </div>
 <div class="">
 </div>
@@ -122,7 +124,7 @@ In the first scenario, the traits of the populations are near their equilibrium 
         {% include figure.liquid path="assets/img/publication_preview/short.webp" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
-    Figure 3. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
+    Figure 3. The Lotka-Volterra Big Bully Game with non-linear GP mapping. Axes now represent phenotypes and the genotypes are hidden. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
 </div>
 </div>
 
