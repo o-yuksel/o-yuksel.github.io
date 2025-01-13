@@ -27,8 +27,12 @@ During development, organisms form a distributed associative memory that allows 
 <div class="">
 </div>
 
+### Ultimate aim
+
 In this work, I aim to develop new models that incorporate trait variation, non-linear trait correlations, and frequency-dependent fitness. My hypothesis is that players will acquire abilities, such as recalling and innovating their own strategies, by leveraging previous associations.
 This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
+
+### Proximate aim
 
 For this preliminary work, I limit myself to 2 traits instead of 42 traits that make up Charles Darwin and Donald Hebb's picture. Therefore, I will postpone the desired effects of modularity, such as the use of novel combinations. The problem becomes apparent when there is a game, and the traits have a bearing on each other. We have to clarify how some traits affect others, etc. Therefore, for now, my aim is to create a game where there are genotype and phenotype levels and a non-linear transformation in between.
 
@@ -142,15 +146,20 @@ In the second scenario, the blue population starts from a more distant point.
 <div class="">
 </div>
 
-As traits evolve, trait correlations adjust accordingly. We can observe that the blue population has formed a memory, which is the correlation between its two traits. In turn, the upper plane, which represents nearby mutants, rotates and constricts in the middle, reflecting the nonlinear nature of these correlations. There is a similarity with these results and the [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1)
+As traits evolve, trait correlations adjust accordingly. We can observe that the blue population has formed a memory, which is the correlation between its two traits. In turn, the upper plane, which represents nearby mutants, rotates and constricts in the middle, reflecting the nonlinear nature of these correlations. Here, this mechanistic model demosnstrates the influence of natural selection in shaping [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1), and conversely, the influence of developmental bias in shaping subsequent opportunities for adaptation (Uller et al., 2018). 
 
 ### Next steps
 
 In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I focused on a two-trait game and added a third trait as their correlation for simplicity. Although this combination successfully captured both frequency-dependent and developmental dynamics, it was limited to two genetic traits, falling short of encompassing the 42 traits that make up the images of Charles Darwin and Donald Hebb. Consequently, we do not observe modular strategy shifts or the utilization of novel trait combinations. To capture such phenomena, we need frequency-dependent models that account for a broader range of traits, enabling the emergence of novel combinations, correlations, and the apparent strategies observed empirically.
 
-References
+### References
 
 Watson, R.A. and Szathmáry, E. (2016) ‘How can evolution learn?’, Trends in Ecology &amp; Evolution, 31(2), pp. 147–157. doi:10.1016/j.tree.2015.11.009.
+
+Uller, T. et al. (2018) ‘Developmental Bias and Evolution: A Regulatory Network Perspective’, Genetics, 209(4), pp. 949–966. Available at: https://doi.org/10.1534/genetics.118.300995.
+
 Bukkuri, A. and Brown, J.S. (2021) ‘Evolutionary game theory: Darwinian dynamics and the g function approach’, Games, 12(4). Available at: https://doi.org/10.3390/g12040072.
+
 Vincent, T.L. and Brown, J.S. (2005) Evolutionary Game Theory, Natural Selection, and Darwinian Dynamics. Cambridge: Cambridge University Press. Available at: https://doi.org/10.1017/CBO9780511542633.
+
 Watson, R.A. et al. (2014) ‘The Evolution Of Phenotypic Correlations And “Developmental Memory”’, Evolution, 68(4), pp. 1124–1138. Available at: https://doi.org/10.1111/evo.12337.
