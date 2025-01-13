@@ -32,7 +32,7 @@ During development, organisms form a distributed associative memory that allows 
 In this work, I aim to develop new models that incorporate trait variation, non-linear trait correlations, and frequency-dependent fitness. My hypothesis is that players will acquire abilities, such as recalling and innovating their own strategies, by leveraging previous associations.
 This work pioneers models that integrate developmental memory and nonlinear trait correlations, providing a new perspective on how populations can evolve adaptive strategies through past experiences.
 
-### Proximate aim
+### Proximal aim
 
 For this preliminary work, I limit myself to 2 traits instead of 42 traits that make up Charles Darwin and Donald Hebb's picture. Therefore, I will postpone the desired effects of modularity, such as the use of novel combinations. The problem becomes apparent when there is a game, and the traits have a bearing on each other. We have to clarify how some traits affect others, etc. Therefore, for now, my aim is to create a game where there are genotype and phenotype levels and a non-linear transformation in between.
 
