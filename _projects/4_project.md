@@ -96,14 +96,14 @@ $$
     </div>
 </div>
 <div class="caption">
-    The sizes of the populations are represented by the diameters of their corresponding circles.
+   Figure 2. The sizes of the populations are represented by the diameters of their corresponding circles.
 </div>
 <div class="">
 </div>
 
 I've integrated developmental memory into the model, allowing the correlation between traits to be stored as populations evolve toward more optimal conditions. This stored information shapes the future evolution of the populations, reflected as the planes that represent nearby mutants constricts and rotates.
 
-Single step non-linear G-P mapping:
+Single step non-linear G-P mapping: Here I implemented a single step transformation on traits v1 and v2. Assigning original traits as genetic and transformed traits as phenotypic traits. The game is played on the phenotype level, however the evolution is still on the genotypic level as genotypes that lead to succesfull phenotypes rewarded.
 
 $$
 p_{u_i} = u_i + \tau_1 \tanh(c \cdot u_j) - \tau_2 u_i
@@ -121,10 +121,13 @@ In the first scenario, the traits of the populations are near their equilibrium 
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid path="assets/img/publication_preview/short.webp" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
+    <div class="caption">
+    Figure 3. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
+</div>
 </div>
 
 
-In the second scenario, the blue population starts from a more distant point. As traits evolve, the trait correlations adjust accordingly. The plane rotates due to the evolving trait correlations and constricts in the middle, reflecting the nonlinear nature of these correlations.
+In the second scenario, the blue population starts from a more distant point. 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -132,14 +135,16 @@ In the second scenario, the blue population starts from a more distant point. As
     </div>
 </div>
 <div class="caption">
-    Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
+   Figure 4. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
 </div>
 <div class="">
 </div>
 
+As traits evolve, the trait correlations adjust accordingly. The plane rotates due to the evolving trait correlations and constricts in the middle, reflecting the nonlinear nature of these correlations. The interaction generates high fitness regions, however the populations stabilize on local maxima. This is a common occurance in adaptive landscpaes. 
+
 ### Conclusion
 
-Here we observe [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1)
+Here we observe [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1) as nearby mutants depicted as upper plane aligns with the direction of selection
 
 
 In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I focused on a two-trait game and added a third trait as their correlation for simplicity. Although this combination successfully captured both frequency-dependent and developmental dynamics, it was limited to two genetic traits, falling short of encompassing the 32 traits that make up the images of Charles Darwin and Donald Hebb. Consequently, we do not observe modular strategy shifts or the utilization of novel trait combinations. To capture such phenomena, we need frequency-dependent models that account for a broader range of traits, enabling the emergence of novel combinations, correlations, and the apparent strategies observed empirically.
