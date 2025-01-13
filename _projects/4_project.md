@@ -124,7 +124,7 @@ In the first scenario, the traits of the populations are near their equilibrium 
         {% include figure.liquid path="assets/img/publication_preview/short.webp" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
-    Figure 3. The Lotka-Volterra Big Bully Game with non-linear GP mapping. Axes now represent phenotypes and the genotypes are hidden. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
+    Figure 3. Near equilibrium Lotka-Volterra Big Bully Game with non-linear GP mapping. Axes represent genotypes. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
 </div>
 </div>
 
@@ -137,20 +137,16 @@ In the second scenario, the blue population starts from a more distant point.
     </div>
 </div>
 <div class="caption">
-   Figure 4. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
+   Figure 4. Far from equilibrium Lotka-Volterra Big Bully Game with non-linear GP mapping. Axes represent genotypes. Populations indicated in blue and yellow share the same 3D seascape, represented by two overlapping 2D landscapes. The omitted Z-plane reflects the correlation between Trait 1 and Trait 2.
 </div>
 <div class="">
 </div>
 
-As traits evolve, the trait correlations adjust accordingly. The plane rotates due to the evolving trait correlations and constricts in the middle, reflecting the nonlinear nature of these correlations. The interaction generates high fitness regions, however the populations stabilize on local maxima. This is a common occurance in adaptive landscpaes. 
+As traits evolve, trait correlations adjust accordingly. We can observe that the blue population has formed a memory, which is the correlation between its two traits. In turn, the upper plane, which represents nearby mutants, rotates and constricts in the middle, reflecting the nonlinear nature of these correlations. There is a similarity with these results and the [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1)
 
-### Conclusion
+### Next steps
 
-Here we observe [developmental bias](https://pubmed.ncbi.nlm.nih.gov/30049818/#&gid=article-figures&pid=figure-2-uid-1) as nearby mutants depicted as upper plane aligns with the direction of selection
-
-
-In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I focused on a two-trait game and added a third trait as their correlation for simplicity. Although this combination successfully captured both frequency-dependent and developmental dynamics, it was limited to two genetic traits, falling short of encompassing the 32 traits that make up the images of Charles Darwin and Donald Hebb. Consequently, we do not observe modular strategy shifts or the utilization of novel trait combinations. To capture such phenomena, we need frequency-dependent models that account for a broader range of traits, enabling the emergence of novel combinations, correlations, and the apparent strategies observed empirically.
-
+In my preliminary attempt to merge Darwinian dynamics with non-linear developmental memory, I focused on a two-trait game and added a third trait as their correlation for simplicity. Although this combination successfully captured both frequency-dependent and developmental dynamics, it was limited to two genetic traits, falling short of encompassing the 42 traits that make up the images of Charles Darwin and Donald Hebb. Consequently, we do not observe modular strategy shifts or the utilization of novel trait combinations. To capture such phenomena, we need frequency-dependent models that account for a broader range of traits, enabling the emergence of novel combinations, correlations, and the apparent strategies observed empirically.
 
 References
 
