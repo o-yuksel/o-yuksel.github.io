@@ -1,25 +1,25 @@
-- title: General Information
-  type: map
-  contents:
-    - name: Full Name
-      value: Özgür Yüksel
-    - name: Date of Birth
-      value: 9th February 1993
-    - name: Languages
-      value: English, Turkish
+#- title: General Information
+#  type: map
+#  contents:
+ #   - name: Full Name
+ #     value: Özgür Yüksel
+ #   - name: Date of Birth
+ #     value: 9th February 1993
+  #  - name: Languages
+  #    value: English, Turkish
 
-- title: Education
-  type: time_table
-  contents:
-    - title: Biotechnology MSc
-      institution: Yeditepe University, Istanbul, Turkey
-      year: 2021
-      description:
-        - 4/4 CGPA
-        - High Honour
-    - title: Genetics and Bioengineering MSc
-      institution: Yeditepe University, Istanbul, Turkey
-      year: 2017
+#- title: Education
+#  type: time_table
+#  contents:
+ #   - title: Biotechnology MSc
+  #    institution: Yeditepe University, Istanbul, Turkey
+    #  year: 2021
+   #   description:
+    #    - 4/4 CGPA
+   #     - High Honour
+  #  - title: Genetics and Bioengineering MSc
+   #   institution: Yeditepe University, Istanbul, Turkey
+  #    year: 2017
 
 - #title: Experience
 #  type: time_table
