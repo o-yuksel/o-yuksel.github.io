@@ -1,6 +1,6 @@
 ---
 layout: cv
-permalink: /cv/
+permalink: https://o-yuksel.github.io/assets/pdf/cv.pdf
 title: cv
 nav: true
 nav_order: 5
