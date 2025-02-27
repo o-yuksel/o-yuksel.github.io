@@ -29,7 +29,7 @@ The simulation begins with the green population’s R trait converging toward th
 
 ### Scenario Two
 
-Altering the initial trait values produces a different dynamic. Here, the green population gains an advantage when the distances—represented by relative line lengths—between its traits and the corresponding traits in the purple population favor the green side. Essentially, the relative magnitudes of these trait distances determine which population thrives.
+Altering the initial trait values produces a different dynamic. In this case, the green population gains an advantage when the green lines are relatively longer than the purple lines, and vice versa.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
