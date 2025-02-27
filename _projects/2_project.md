@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Exploring Cancer’s Evolutionary Landscape: Speciation and the Emergence of Hopeful Monsters
+title: Exploring Cancer’s Evolutionary Landscape. Speciation and the Emergence of Hopeful Monsters
 description:
 img: assets/img/publication_preview/speciation.webp
 importance: 1
