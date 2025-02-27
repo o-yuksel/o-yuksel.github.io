@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Exploring Cancer's Evolutionary Landscape, Speciation and Hopeful Monsters
+title: Exploring Cancer’s Evolutionary Landscape: Speciation and the Emergence of Hopeful Monsters
 description:
 img: assets/img/publication_preview/speciation.webp
 importance: 1
@@ -8,9 +8,9 @@ category: work
 related_publications: false
 ---
 
-We are able to recognize the disease(s) we call “cancer” due to the convergent evolution. Different tumours from different tissues and organisms converge into the same phenotypes called “hallmarks of cancer” (Hanahan, 2022). The most plausible driver for such convergent trait acquisition is the natural selection (Fortunato et al., 2017).
+The very concept of cancer is illuminated by the phenomenon of convergent evolution. Tumors, despite arising from distinct tissues and even different organisms, tend to converge upon a common set of phenotypic traits, widely recognized as the "hallmarks of cancer" (Hanahan, 2022). This recurrent pattern strongly suggests that natural selection plays a pivotal role in shaping these convergent traits (Fortunato et al., 2017).
 
-In his book “On the Origin of Species”, Charles Darwin proposed natural selection to explain steady accumulation of differences often observed across natural histories of animals. This depiction was supported by many paleontological investigations and it has merged with the principles of molecular genetics to form the modern evolutionary synthesis. This model suggests gradual changes in genotype and therefore phenotype, akin to Rudolph Zallinger’s iconic, though flawed, imagery of ape to man.
+Charles Darwin's groundbreaking work, On the Origin of Species, introduced natural selection as the mechanism responsible for the gradual accumulation of differences observed throughout the natural histories of organisms. Supported by extensive paleontological evidence and later integrated with the principles of molecular genetics, this perspective gave rise to the modern evolutionary synthesis. This framework envisions evolution as a slow, incremental process, reminiscent of the iconic (if somewhat oversimplified) progression from ape to man as depicted by Rudolph Zallinger.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -19,28 +19,22 @@ In his book “On the Origin of Species”, Charles Darwin proposed natural sele
 </div>
 
 
-Possibly due to the influence of modern evolutionary synthesis, the evolutionary process in cancer is commonly assumed to follow gradual, slow and consistent evolutionary tempo. However, evidence suggests that cancer evolution does not strictly adhere to the selection process as in neutral evolution or gradual changes as in punctuated evolution.  Despite the detection of neutral growth, selection must occur at some stage during clonal evolution in order for a neoplasm to grow within normal tissues (Cross et al., 2016).
+Influenced by this gradualist view, it is often assumed that cancer evolution proceeds in a slow and steady manner. However, emerging evidence indicates that the evolutionary dynamics of cancer do not always adhere to a uniform pace. While periods of neutral growth may be evident, selection becomes critical at key stages of clonal expansion to enable neoplastic cells to outcompete their normal counterparts (Cross et al., 2016). In other words, cancer evolution may not strictly follow the predictable patterns of gradual change or neutral drift.
 
-Punctuated equilibrium and saltation theory are often confused, but they are distinct. Saltation theory suggests that new species can arise rapidly through sudden large-scale mutations, while punctuated equilibrium proposes that gross phenotypic change results from gradual genetic evolution in isolated populations. Richard Goldschmidt referred to these sudden large-scale mutations as "hopeful monsters," aiming for perfection in a single leap. However, most gross genetic rearrangements are likely to be maladaptive (Graham & Sottoriva, 2017).
+It is important to distinguish between two concepts that are sometimes conflated: punctuated equilibrium and saltation theory. Saltation theory suggests that entirely new species can emerge abruptly through sudden, large-scale mutations. In contrast, punctuated equilibrium describes significant phenotypic shifts that arise from gradual genetic evolution within isolated populations. Richard Goldschmidt famously coined the term "hopeful monsters" to describe these abrupt, radical mutations that, in rare instances, might yield highly optimized forms. Nonetheless, the majority of such drastic genetic rearrangements tend to be maladaptive (Graham & Sottoriva, 2017).
 
-Punctuated equilibrium in cancer implies variable and nongradual evolutionary tempos, resulting in chaotic courses. To ensure effective clinical prediction models and therapy responses, non-gradualism must be considered. Punctuation enables rapid evolution, potentially leading to quicker therapy responses than predicted. Current models favor linear mutation rates and single nucleotide variants, but explicit models of stasis and punctuated equilibrium offer valuable insights (Cross et al., 2016).
+Applying the concept of punctuated equilibrium to cancer suggests that tumor evolution may follow variable, non-linear trajectories, often marked by chaotic bursts of change. This non-gradualism has important implications for clinical prediction models and therapeutic strategies. Sudden evolutionary leaps could result in faster-than-anticipated changes in tumor behavior, challenging models that assume linear mutation rates and predominantly single nucleotide variants. Incorporating models that explicitly account for periods of stasis and rapid change can therefore offer more comprehensive insights into cancer dynamics (Cross et al., 2016).
 
+To illustrate these ideas, imagine an adaptive landscape where the initial population is represented by a purple species, with the size of each circle corresponding to population size. Once this population stabilizes at a local minimum, it may diverge into two subspecies, each evolving toward distinct local peaks. Under a strict gradualist scenario, further speciation via sympatric mechanisms would be unlikely, with geographic isolation (i.e., allopatric speciation) being necessary for colonizing a new evolutionary stable strategy (ESS). However, in the context of cancer, evolution is not confined to such gradual shifts. Punctuated chromosomal alterations can give rise to "hopeful monsters" (depicted in blue) that rapidly establish themselves at a novel ESS.
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid path="assets/img/publication_preview/speciation.webp" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="caption">
-    In this adaptive landscape, initially only purple species exist, the size of the circle indicates the size of the population. After stabilizing in local minima point, I have let population divide into two subspecies, after these two species evolve to two local maximas, further speciation won’t happen in the same way (i.e., sympatric speciation). Within the gradualist perspective, only geographical isolation (i.e., allopatric speciation) could cause occupation of the leftmost ESS. However, in the cancer case we don’t have to adhere to a gradualist perspective as punctuated chromosomal abbreviations may result in hopeful species (blue) that would land at the ESS.
-</div>
 
-G-function model assumes a micro-mutation approach that restricts the ways natural selection explores the strategy set. In their book Vincent & Brown, 2005, have mentioned hopeful monsters that would explore the strategy set. However, they have adopted a micro-mutation approach of selecting invaders’ strategies within some small neighborhood of existing strategy values to conform more faithfully to constraints imposed by the genetics. Here I have used an example from their book to show both sympatric speciation and appearance of a hopeful monster.
+The G-function model provides a useful framework by assuming a micro-mutation approach, one that limits the range of strategies accessible to natural selection. In their seminal work, Vincent and Brown (2005) discuss the role of hopeful monsters in exploring new regions of the strategy space. Although they adhere to a paradigm in which invading strategies are confined to a small neighborhood around existing values in keeping with genetic constraints, their framework effectively demonstrates both sympatric speciation and the emergence of a hopeful monster within a constrained evolutionary landscape.
 
-
-
-
-Although current g-function cancer models have a much simpler adaptive landscape to observe speciation events, incorporation of more detailed tumor microenvironment and effects of multiple drugs could create suitable adaptive landscapes to observe speciation, macroevolution and generation of hopeful monsters.
-
+While current G-function models of cancer rely on relatively simple adaptive landscapes to observe speciation events, there is considerable potential for refinement. By incorporating a more detailed characterization of the tumor microenvironment and accounting for the effects of multiple drugs, future models could more accurately capture the complexities of speciation, macroevolution, and the sudden emergence of hopeful monsters in cancer.
 
 References
 
