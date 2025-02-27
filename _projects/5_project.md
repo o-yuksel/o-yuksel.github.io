@@ -53,10 +53,7 @@ $$
 G(\mathbf{v}, \mathbf{u}, \mathbf{x}) = \frac{r}{K} \left[ K - \sum_{j=1}^r a(\mathbf{v}, \mathbf{u}_j) x_j \right]
 $$
 
-<details>
- <summary>Competition term</summary>
- The competition term is a normal distribution with respect to v and takes on a maximum when v =uj. Its variance, σ2 a, determines how quickly the competition coefficient changes as competitors deviate in their strategy values. A large variance means that the competition coefficient changes slowly with changes in v. The term β introduces an asymmetry into the competition. When β>0, an individual with a larger value for v1 has a larger negative effect on an individual with a smaller v1.
-</details>
+Competition term
 
 $$
 a(\mathbf{v}, \mathbf{u}_j) = 1 + B_j \exp \left[ -\frac{(v_1 - u_{j1} + \beta)^2}{2\sigma_a^2} \right] - \exp \left[ -\frac{\beta^2}{2\sigma_a^2} \right]
