@@ -5,8 +5,8 @@ description:
 img: assets/img/publication_preview/Scenario1_Slow_Speed.webp
 importance: 1
 category: work
-selected: true
 related_publications: false
+selected: true
 ---
 
 Predicting the course of evolution is a fundamental challenge in biology. The complexity of development, where genes and environment interact in non-linear ways, often makes it seem daunting to foresee the phenotypic consequences of any given change. However, a recent theoretical framework by Milocco and Uller (2024) offers an optimistic perspective, proposing that by representing development as a dynamical system, we can uncover the underlying logic of how variation is generated and, in turn, predict evolutionary trajectories.
