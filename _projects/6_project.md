@@ -1,12 +1,11 @@
 ---
 layout: page
-title: Visualizing Evolutionary Prediction: A Simulation of Developmental Dynamics
+title: "Visualizing Evolutionary Prediction: A Simulation of Developmental Dynamics"
 description:
 img: assets/img/publication_preview/Scenario1_Slow_Speed.webp
 importance: 1
 category: work
 related_publications: false
-
 ---
 
 Predicting the course of evolution is a fundamental challenge in biology. The complexity of development, where genes and environment interact in non-linear ways, often makes it seem daunting to foresee the phenotypic consequences of any given change. However, a recent theoretical framework by Milocco and Uller (2024) offers an optimistic perspective, proposing that by representing development as a dynamical system, we can uncover the underlying logic of how variation is generated and, in turn, predict evolutionary trajectories.
@@ -47,47 +46,30 @@ As the simulation runs, we can see how the population leverages its immediate pl
 The Mathematical Foundation
 The behavior visualized in the simulation is grounded in the mathematical framework of dynamical systems. The paper elegantly formalizes development with a general equation, capturing how the phenotypic state, x, changes over time.
 
-<details>
- <summary>General Representation of Development</summary>
+
  $$
 \dot{x}=f(t,x,\lambda), x(t_{0})=x_{0}
  $$
-</details>
 
-This equation states that the rate of change of the phenotype (
 
-x
-˙
- ) is a function, f, of time (t), the current phenotype itself (x), and a set of developmental parameters (λ) which can be genetic or environmental.
+This equation states that the rate of change of the phenotype (x˙) is a function, f, of time (t), the current phenotype itself (x), and a set of developmental parameters (λ) which can be genetic or environmental.
 
 
 
+The framework then allows us to predict the effect of a small perturbation (a change in λ) on the phenotype. This is described by the sensitivity vector, s_λ(t), which quantifies the direction and magnitude of the phenotypic change.
 
-The framework then allows us to predict the effect of a small perturbation (a change in λ) on the phenotype. This is described by the 
-
-sensitivity vector, s_λ(t), which quantifies the direction and magnitude of the phenotypic change.
-
-<details>
- <summary>Sensitivity Vector</summary>
  $$
 s_{\lambda}(t)=\frac{\partial x(t,\lambda)}{\partial\lambda}|_{\lambda=\lambda^{*}}
  $$
-</details>
 
 The simulation specifically uses a GRN model, where the change in gene expression for each gene i is a function of regulatory inputs from other genes and the environment. This is a concrete implementation of the general function f.
 
-<details>
  <summary>Gene Regulatory Network Dynamics</summary>
  $$
 \dot{x}{i}=\frac{r(b{i})}{K_{i}+r(b_{i})}-\mu_{i}x_{i}; b_{i}=\sum_{j=1}^{n}\theta_{j}x_{j}+u_{j}
  $$
-</details>
 
-Here, the change in expression 
-
-x
-˙
- ∗i depends on Michaelis-Menten dynamics, a degradation rate μ∗i, and the total regulatory input b_i, which is a sum of effects from all other genes (θ_ijx_j) and the environment (u_j).
+Here, the change in expression x˙∗i depends on Michaelis-Menten dynamics, a degradation rate μ∗i, and the total regulatory input b_i, which is a sum of effects from all other genes (θ_ijx_j) and the environment (u_j).
 
 
 Discussion
