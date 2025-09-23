@@ -5,6 +5,7 @@ description:
 img: assets/img/publication_preview/long.webp
 importance: 1
 category: work
+selected: true
 related_publications: false
 
 ---
