@@ -62,13 +62,14 @@ layout: default
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
       </h2>
       {% include selected_papers.liquid %}
-    {% endif %}
-
-  <!-- Projects -->
-  {% if page.projects %}
-    <h2>
+        {% endif %}
+    
+        <p>DEBUG: Number of projects: {{ site.projects | size }}</p>
+        <!-- Projects -->
+        {% if page.projects %}    <h2>
       <a href="{{ '/projects/' | relative_url }}" style="color: inherit">projects</a>
     </h2>
+    {% include selected_projects.liquid %}
   {% endif %}
 
     <!-- Social -->
