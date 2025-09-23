@@ -6,7 +6,7 @@ img: assets/img/publication_preview/lvrps2crop.webp
 importance: 1
 category: work
 related_publications: false
-
+selected: true
 ---
 
 Traditional evolutionary game theory (EGT) often assigns discrete strategies to distinct populations. However, many natural interactions—such as those observed in mutualistic relationships rely on subtle, continuous trait matching. Inspired by recent work on reconciling ecology with EGT (Tarnita and Traulsen, 2024), a new Lotka Volterra Rock, Paper, Scissors model is presented. This framework considers two identical populations, each employing all three strategies as continuous traits, and explores how nuanced trait alignments can drive differential outcomes in competitive interactions.
