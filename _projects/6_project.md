@@ -5,6 +5,7 @@ description:
 img: assets/img/publication_preview/Scenario1_Slow_Speed.webp
 importance: 1
 category: work
+selected: true
 related_publications: false
 ---
 
