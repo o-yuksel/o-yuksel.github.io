@@ -64,9 +64,9 @@ layout: default
       {% include selected_papers.liquid %}
         {% endif %}
     
-        <p>DEBUG: Number of projects: {{ site.projects | size }}</p>
+        
         <!-- Projects -->
-        {% if page.projects %}    <h2>
+        {% if page.projects %}
       <a href="{{ '/projects/' | relative_url }}" style="color: inherit">projects</a>
     </h2>
     {% include selected_projects.liquid %}
