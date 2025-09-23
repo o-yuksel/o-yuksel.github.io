@@ -1,4 +1,4 @@
-{% assign selected_projects = site.projects %}
+{% assign selected_projects = site.projects | where: "selected", true %}
 {% if selected_projects != empty %}
   <div class="projects">
     <div class="grid">
