@@ -126,6 +126,8 @@ This visually connects the macroscopic pattern of evolution to the microscopic c
 Models like this one serve as a crucial bridge between the formal mathematical theory of developmental dynamics and a more intuitive, visual grasp of its evolutionary consequences. By visualizing the evolution of the sensitivity map, the simulation reinforces the concept that development is not an inscrutable black box but a structured, generative process that imposes predictable biases on the variation available to selection. This framework's ability to mechanistically link plasticity with evolvability moves beyond simple forecasting and opens new avenues for exploring the concept of **evolutionary control**, where a deep understanding of developmental rules could be used to guide or accelerate adaptation.
 
 {% raw %}
+
+```html
 //=========================================================================
 // ALGORITHM: Mechanistic Forecasting of Evolutionary Trajectories
 //=========================================================================
@@ -177,6 +179,8 @@ distances <- Calculate_Trajectory_Distances(lineages)
 Print_Final_Results(distances)
 
 //=========================================================================
+```
+
 {% endraw %}
 
 ### References
