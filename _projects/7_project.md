@@ -2,7 +2,7 @@
 layout: page
 title: "An In Silico Race: How Initial Developmental Bias Shapes Evolutionary Trajectories"
 description: "A computational model that visualizes how differences in a founder genotype's developmental bias affect the speed and direction of a multi-lineage evolutionary race."
-img: assets/img/publication_preview/FinalRace.gif
+img: assets/img/publication_preview/MutationRace.webp
 importance: 1
 category: work
 related_publications: true
@@ -13,7 +13,7 @@ A central goal in evolutionary biology is to understand how the generative proce
 
 A powerful alternative is to model development mechanistically as a dynamical system, providing a "bottom-up" framework to predict the effects of perturbations (Milocco and Uller, 2024). This project, `final_publication_race.m`, uses this framework to visually explore a key question: how do differences in the initial developmental bias of a founder organism affect the subsequent speed and direction of multi-lineage evolution?
 
-### The Simulation: An Evolutionary Race Between Two Founder Types
+### The Simulation: An Evolutionary Race Between Pathyways
 
 The model simulates an "evolutionary race" using a Gene Regulatory Network (GRN) as the underlying developmental system. The script can be run in two modes, controlled by a toggle:
 1.  **Standard Founder:** The simulation begins with a seeded GRN that has balanced responsiveness in both horizontal and vertical directions.
@@ -32,7 +32,7 @@ Figure 1 shows the full sensitivity map for a founder population. Running the sc
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/publication_preview/FinalRace.gif" title="Figure 2: Animated Evolutionary Race" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/publication_preview/MutationRace.webp" title="Figure 2: Animated Evolutionary Race" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
