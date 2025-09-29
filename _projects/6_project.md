@@ -5,20 +5,20 @@ description: "A simulation demonstrating how the pace of environmental change di
 img: assets/img/publication_preview/Scenario1_Slow_Speed.webp
 importance: 1
 category: work
-related_publications: false
+related_publications: true
 selected: true
 ---
 
-Predicting the course of evolution is a fundamental challenge in biology. A recent theoretical framework proposes that by representing development as a dynamical system, we can predict evolutionary trajectories. Inspired by this work, the following in silico experiment provides a dynamic visualization of these principles, demonstrating the profound link between plastic responses and long-term genetic change.
+A key challenge in biology is to understand how the process of development shapes the phenotypic variation that natural selection can act upon. One powerful approach is to represent development as a dynamical system to reveal the underlying logic of how this variation is generated (**Milocco and Uller, 2024**). This in-silico experiment provides a dynamic visualization of these principles by exploring a critical question: how does the **pace** of environmental change affect a population's **mode** of adaptation?
 
 ### The Simulation: A Tale of Two Speeds
 
-The script implements a population-based genetic algorithm where a Gene Regulatory Network (GRN) must adapt to a moving environmental optimum. This setup allows us to explore a key question: how does the *pace* of environmental change affect the *mode* of adaptation?
+The script uses a population-based genetic algorithm where a Gene Regulatory Network (GRN) must adapt to a moving environmental optimum. This setup allows us to explore how a population copes with different rates of environmental change.
 
-The animations below show a direct comparison between two scenarios. We can see three key elements:
+The animations below show a direct comparison between two scenarios. We can observe three key elements:
 
 * **The Optimum (red 'x')**: The ideal phenotype dictated by the environment at each generation.
-* **The Average Reference Phenotype (green square)**: The population's genetically determined state. Its movement represents genetic adaptation.
+* **The Average Reference Phenotype (green square)**: The population's genetically determined state in a neutral environment. Its movement represents genetic adaptation.
 * **The Average Expressed Phenotype (blue circle)**: The population's actual state under environmental influence. The vector between the green square and blue circle is the plastic response.
 
 <div class="row">
@@ -39,28 +39,28 @@ Under slow environmental change, the population has time to adapt genetically. T
 Under rapid environmental change, genetic adaptation cannot keep up. The population survives by relying on its immediate plastic response (the blue circle) to track the optimum.
 </div>
 
-### The Mathematical Foundation
+### Mathematical Foundation
 
-The behavior visualized is grounded in the mathematics of dynamical systems, where the change in a phenotypic state, $$x$$, is captured by a general equation.
+The simulation is grounded in two core mathematical components: the GRN's developmental dynamics and the evolutionary fitness model.
 
-$$
-\dot{x}=f(t,x,\lambda), x(t_{0})=x_{0}
-$$
+1.  **GRN Dynamics**: Development is modeled as a dynamical system where the change in gene expression ($$\dot{x}_i$$) for each gene is a function of regulatory inputs from other genes ($$\theta_{ij}$$) and the environment ($$u_j$$). The script numerically integrates the following differential equation to find the steady-state phenotype:
+    $$
+    \dot{x}_{i}=\frac{r(b_{i})}{K_{i}+r(b_{i})}-\mu_{i}x_{i}; \quad b_{i}=\sum_{j=1}^{n}\theta_{ij}x_{j}+u_{j}
+    $$
 
-This states that the rate of change of the phenotype ($$\dot{x}$$) is a function of time ($$t$$), the current phenotype ($$x$$), and developmental parameters ($$\lambda$$). The framework allows us to predict the effect of a small perturbation on the phenotype via the **sensitivity vector**, $$s_{\lambda}(t)$$.
-
-$$
-s_{\lambda}(t)=\frac{\partial x(t,\lambda)}{\partial\lambda}|_{\lambda=\lambda^{*}}
-$$
-
-The simulation uses a specific GRN model as a concrete implementation of the general function $$f$$.
-
-$$
-\dot{x}_{i}=\frac{r(b_{i})}{K_{i}+r(b_{i})}-\mu_{i}x_{i}; b_{i}=\sum_{j=1}^{n}\theta_{ij}x_{j}+u_{j}
-$$
+2.  **Evolutionary Fitness**: Selection is modeled using a Gaussian fitness function. An individual's fitness ($$w$$) decreases exponentially with the squared Euclidean distance ($$d^2$$) between its phenotype and the moving optimum. Individuals are selected as parents for the next generation with a probability proportional to their fitness.
+    $$
+    w = e^{-k \cdot d^2}
+    $$
 
 ### Discussion
 
-This comparative simulation provides a powerful, visual demonstration of how the rate of environmental change dictates a population's adaptive strategy. Under slow, predictable change, the population relies on **genetic assimilation**, where its underlying genetics gradually evolve to match the environment. Under rapid change, however, this process is too slow. Survival depends on leveraging existing **phenotypic plasticity** as a short-term solution to keep pace.
+This comparative simulation provides a powerful, visual demonstration of how the rate of environmental change dictates a population's adaptive strategy (**Uller et al., 2024**). Under slow, predictable change, the population relies on **genetic assimilation**, where its underlying genetics gradually evolve to match the environment. Under rapid change, however, this process is too slow. Survival depends on leveraging existing **phenotypic plasticity** as a short-term solution to keep pace.
 
-By providing a computational sandbox to explore these ideas, this script reinforces the concept that development is not an inscrutable black box but a structured process whose internal dynamics shape and channel evolution in predictable ways.
+This visually reinforces the concept that plasticity can "take the lead" in adaptive evolution, serving as a crucial first step that allows a population to persist in a new environment while slower genetic changes follow.
+
+### References
+
+Milocco, L., and Uller, T. (2024). Utilizing developmental dynamics for evolutionary prediction and control. *PNAS, 121*(14).
+
+Uller, T., Milocco, L., Isanta-Navarro, J., Cornwallis, C. K., and Feiner, N. (2024). Twenty years on from Developmental Plasticity and Evolution: middle-range theories and how to test them. *Journal of Experimental Biology, 227*.
