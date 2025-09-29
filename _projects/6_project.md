@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Visualizing Evolutionary Prediction: A Simulation of Developmental Dynamics"
-description:
+title: "Visualizing Modes of Adaptation in a Changing World"
+description: "A simulation demonstrating how the pace of environmental change dictates whether a population adapts through slow genetic assimilation or rapid phenotypic plasticity."
 img: assets/img/publication_preview/Scenario1_Slow_Speed.webp
 importance: 1
 category: work
@@ -9,72 +9,58 @@ related_publications: false
 selected: true
 ---
 
-Predicting the course of evolution is a fundamental challenge in biology. The complexity of development, where genes and environment interact in non-linear ways, often makes it seem daunting to foresee the phenotypic consequences of any given change. However, a recent theoretical framework by Milocco and Uller (2024) offers an optimistic perspective, proposing that by representing development as a dynamical system, we can uncover the underlying logic of how variation is generated and, in turn, predict evolutionary trajectories.
+Predicting the course of evolution is a fundamental challenge in biology. A recent theoretical framework proposes that by representing development as a dynamical system, we can predict evolutionary trajectories. Inspired by this work, the following in silico experiment provides a dynamic visualization of these principles, demonstrating the profound link between plastic responses and long-term genetic change.
 
+### The Simulation: A Tale of Two Speeds
 
-Inspired by this work, the following in silico experiment, circular_tracking_evolution_analysis.m, provides a dynamic visualization of these principles. It brings the paper's theory to life by simulating how a population adapts under selection, demonstrating the profound link between plastic responses and long-term genetic change.
+The script implements a population-based genetic algorithm where a Gene Regulatory Network (GRN) must adapt to a moving environmental optimum. This setup allows us to explore a key question: how does the *pace* of environmental change affect the *mode* of adaptation?
 
-The Simulation: A GRN in a Changing World
-The script implements a population-based genetic algorithm centered on a Gene Regulatory Network (GRN), a classic model system used in the Milocco and Uller paper. The simulation places a population of these GRNs in an environment where the optimal phenotype is not static but moves along a circular path. The population must continuously evolve its genetic makeup to track this moving target.
+The animations below show a direct comparison between two scenarios. We can see three key elements:
 
-
-This setup allows us to directly observe the concepts of plasticity and evolvability. The animation below shows the simulation's output. We can see three key elements:
-
-The Optimum (red 'x'), representing the ideal phenotype dictated by the environment at each generation.
-
-The Average Reference Phenotype (green square), showing the population's genetically determined state in a neutral environment. Its movement over generations represents genetic adaptation.
-
-The Average Expressed Phenotype (blue circle), showing the population's actual state under the influence of the current environment. The vector between the green square and blue circle is the population's plastic response.
-
-As the simulation runs, we can see how the population leverages its immediate plastic response to survive while longer-term genetic adaptation gradually shifts the reference phenotype to better align with the moving optimum.
+* **The Optimum (red 'x')**: The ideal phenotype dictated by the environment at each generation.
+* **The Average Reference Phenotype (green square)**: The population's genetically determined state. Its movement represents genetic adaptation.
+* **The Average Expressed Phenotype (blue circle)**: The population's actual state under environmental influence. The vector between the green square and blue circle is the plastic response.
 
 <div class="row">
 <div class="col-sm mt-3 mt-md-0">
-{% include figure.liquid path="assets/img/publication_preview/Scenario1_Slow_Speed.webp" title="GRN Adaptation" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid path="assets/img/publication_preview/Scenario1_Slow_Speed.webp" title="Slow Change: Genetic Assimilation" class="img-fluid rounded z-depth-1" %}
 </div>
 </div>
-<div class="">
+<div class="caption">
+Under slow environmental change, the population has time to adapt genetically. The green square (genetics) closely tracks the red 'x' (optimum).
 </div>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/publication_preview/Scenario2_Fast_Speed.webp" title="LV" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid path="assets/img/publication_preview/Scenario2_Fast_Speed.webp" title="Fast Change: Plastic Reliance" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="">
+<div class="caption">
+Under rapid environmental change, genetic adaptation cannot keep up. The population survives by relying on its immediate plastic response (the blue circle) to track the optimum.
 </div>
 
-The Mathematical Foundation
-The behavior visualized in the simulation is grounded in the mathematical framework of dynamical systems. The paper elegantly formalizes development with a general equation, capturing how the phenotypic state, x, changes over time.
+### The Mathematical Foundation
 
+The behavior visualized is grounded in the mathematics of dynamical systems, where the change in a phenotypic state, $$x$$, is captured by a general equation.
 
- $$
+$$
 \dot{x}=f(t,x,\lambda), x(t_{0})=x_{0}
- $$
+$$
 
+This states that the rate of change of the phenotype ($$\dot{x}$$) is a function of time ($$t$$), the current phenotype ($$x$$), and developmental parameters ($$\lambda$$). The framework allows us to predict the effect of a small perturbation on the phenotype via the **sensitivity vector**, $$s_{\lambda}(t)$$.
 
-This equation states that the rate of change of the phenotype (x˙) is a function, f, of time (t), the current phenotype itself (x), and a set of developmental parameters (λ) which can be genetic or environmental.
-
-
-
-The framework then allows us to predict the effect of a small perturbation (a change in λ) on the phenotype. This is described by the sensitivity vector, s_λ(t), which quantifies the direction and magnitude of the phenotypic change.
-
- $$
+$$
 s_{\lambda}(t)=\frac{\partial x(t,\lambda)}{\partial\lambda}|_{\lambda=\lambda^{*}}
- $$
+$$
 
-The simulation specifically uses a GRN model, where the change in gene expression for each gene i is a function of regulatory inputs from other genes and the environment. This is a concrete implementation of the general function f.
+The simulation uses a specific GRN model as a concrete implementation of the general function $$f$$.
 
- <summary>Gene Regulatory Network Dynamics</summary>
- $$
-\dot{x}{i}=\frac{r(b{i})}{K_{i}+r(b_{i})}-\mu_{i}x_{i}; b_{i}=\sum_{j=1}^{n}\theta_{j}x_{j}+u_{j}
- $$
+$$
+\dot{x}_{i}=\frac{r(b_{i})}{K_{i}+r(b_{i})}-\mu_{i}x_{i}; b_{i}=\sum_{j=1}^{n}\theta_{ij}x_{j}+u_{j}
+$$
 
-Here, the change in expression x˙∗i depends on Michaelis-Menten dynamics, a degradation rate μ∗i, and the total regulatory input b_i, which is a sum of effects from all other genes (θ_ijx_j) and the environment (u_j).
+### Discussion
 
+This comparative simulation provides a powerful, visual demonstration of how the rate of environmental change dictates a population's adaptive strategy. Under slow, predictable change, the population relies on **genetic assimilation**, where its underlying genetics gradually evolve to match the environment. Under rapid change, however, this process is too slow. Survival depends on leveraging existing **phenotypic plasticity** as a short-term solution to keep pace.
 
-Discussion
-This simulation provides a powerful, visual confirmation of the core thesis presented by Milocco and Uller. By observing the interplay between the reference (genetic) and expressed (plastic) phenotypes, we can see how the immediate response to the environment provides a "look-ahead" for the direction of future genetic adaptation. The alignment between the plastic response vector and the eventual vector of genetic change is not a coincidence but a predictable outcome of the underlying developmental dynamics.
-
-
-By providing a computational sandbox to explore these ideas, this script serves as a valuable tool for building intuition. It reinforces the concept that development is not an inscrutable black box but a structured process whose internal dynamics shape and channel evolution in predictable ways.
+By providing a computational sandbox to explore these ideas, this script reinforces the concept that development is not an inscrutable black box but a structured process whose internal dynamics shape and channel evolution in predictable ways.
