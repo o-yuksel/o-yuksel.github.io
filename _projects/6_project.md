@@ -11,7 +11,7 @@ selected: true
 
 A key challenge in biology is to understand how the process of development shapes the phenotypic variation that natural selection can act upon. One powerful approach is to represent development as a dynamical system to reveal the underlying logic of how this variation is generated (**Milocco and Uller, 2024**). This in-silico experiment provides a dynamic visualization of these principles by exploring a critical question: how does the **pace** of environmental change affect a population's **mode** of adaptation?
 
-### The Simulation: A Tale of Two Speeds
+### The Simulation: Genetic Assimilation vs. Plasticity
 
 The script uses a population-based genetic algorithm where a Gene Regulatory Network (GRN) must adapt to a moving environmental optimum. This setup allows us to explore how a population copes with different rates of environmental change.
 
@@ -60,7 +60,7 @@ This comparative simulation provides a powerful, visual demonstration of how the
 This visually reinforces the concept that plasticity can "take the lead" in adaptive evolution, serving as a crucial first step that allows a population to persist in a new environment while slower genetic changes follow.
 
 {% raw %}
-```html
+```plaintext
 //=========================================================================
 // ALGORITHM: GRN Adaptation to a Moving Optimum
 //=========================================================================
