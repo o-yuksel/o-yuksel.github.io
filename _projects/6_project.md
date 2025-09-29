@@ -55,7 +55,7 @@ The simulation is grounded in two core mathematical components: the GRN's develo
 
 ### Discussion
 
-This comparative simulation provides a powerful, visual demonstration of how the rate of environmental change dictates a population's adaptive strategy (**Uller et al., 2024**). Under slow, predictable change, the population relies on **genetic assimilation**, where its underlying genetics gradually evolve to match the environment. Under rapid change, however, this process is too slow. Survival depends on leveraging existing **phenotypic plasticity** as a short-term solution to keep pace (**West-Eberhard, 2003**).
+This comparative simulation provides a powerful, visual demonstration of how the rate of environmental change dictates a population's adaptive strategy (**Uller et al., 2024**). Under slow, predictable change, the population relies on **genetic assimilation**, where its underlying genetics gradually evolve to match the environment. Under rapid change, however, this process is too slow. Survival depends on leveraging existing **phenotypic plasticity** as a short-term solution to keep pace.
 
 This visually reinforces the concept that plasticity can "take the lead" in adaptive evolution, serving as a crucial first step that allows a population to persist in a new environment while slower genetic changes follow.
 
