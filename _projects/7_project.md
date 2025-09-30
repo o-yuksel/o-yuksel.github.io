@@ -17,7 +17,7 @@ github: https://github.com/yourusername/evolutionary-trajectory-simulation
     <a href="[https://github.com/o-yuksel/evolutionary-trajectory-simulation](https://github.com/o-yuksel/evolutionary-trajectory-simulation/blob/cb27ff9f45c34e3029d3cd67f90dba058b0a2d0d/src/evolutionary_trajectory_sim.m)">
         <img src="https://img.shields.io/badge/MATLAB-R2019b+-orange?style=flat-square&logo=mathworks" alt="MATLAB">
     </a>
-        <a href="[https://github.com/o-yuksel/evolutionary-trajectory-simulation](https://github.com/o-yuksel/evolutionary-trajectory-simulation/blob/cb27ff9f45c34e3029d3cd67f90dba058b0a2d0d/src/evolutionary_trajectory_sim.py)">
+        <a href="[[https://github.com/o-yuksel/evolutionary-trajectory-simulation](https://github.com/o-yuksel/evolutionary-trajectory-simulation/blob/cb27ff9f45c34e3029d3cd67f90dba058b0a2d0d/src/evolutionary_trajectory_sim.py)](https://github.com/o-yuksel/evolutionary-trajectory-simulation/blob/main/src/evolutionary_trajectory_sim.py)">
         <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)" alt="python">
     </a>
 </div>
