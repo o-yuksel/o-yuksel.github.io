@@ -113,7 +113,7 @@ This simulation provides a clear, visual demonstration of how initial developmen
 
 
 
-The animation's core mechanic—the **Forecast Horizon**—provides a tangible basis for the decay of evolutionary predictability. An epoch ends not after a fixed time, but when the system's internal dynamics have changed significantly, measured by the deviation of the current sensitivity vector from the initial prediction
+The **Forecast Horizon** provides a tangible basis for the decay of evolutionary predictability. An epoch ends not after a fixed time, but when the system's internal dynamics have changed significantly, measured by the deviation of the current sensitivity vector from the initial prediction
 
 $$
 
