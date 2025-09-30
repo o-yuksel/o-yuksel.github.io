@@ -23,16 +23,6 @@ A central goal in evolutionary biology is to understand how the generative proce
 
 A powerful alternative is to model development mechanistically as a dynamical system, providing a "bottom-up" framework to predict the effects of perturbations (Milocco and Uller, 2024). This project uses this framework to visually explore a key question: how do differences in the initial developmental bias of a founder organism affect the subsequent speed and direction of multi-lineage evolution?
 
-### Quick Start
-
-```matlab
-% Clone the repository
-git clone https://github.com/o-yuksel/evolutionary-trajectory-simulation.git
-cd evolutionary-trajectory-simulation
-
-% Run the simulation
-evolutionary_trajectory_sim
-```
 
 ### The Simulation: A Multi-Lineage Exploration
 
@@ -113,17 +103,31 @@ All code, parameters, and configurations are version-controlled and documented. 
 
 ### Discussion
 
-This simulation provides a clear, visual demonstration of how initial developmental bias can predict and influence long-term evolutionary trajectories (Uller et al., 2024). By comparing the results from the 'Standard Founder' and 'Modified Founder' runs, one can directly observe how the engineered increase in vertical sensitivity leads to dramatically faster adaptation for lineages selected along that axis.
+# Developmental Bias Shapes Evolutionary Trajectories
+The simulation is initialized with a founder GRN that has balanced, symmetric sensitivity, meaning there is no strong pre-existing "grain" favoring one direction of evolution over another. However, a subtle bias does emerge from the inherent nonlinearity of the system's Michaelis-Menten kinetics. This creates a slight preference for lower gene expression levels, which can be seen in the slightly longer trajectories of lineages evolving downwards and to the left. This demonstrates that even without major engineered constraints, the fundamental properties of the underlying developmental system can still introduce subtle and predictable asymmetries into evolution.
 
-The **Forecast Horizon** provides a tangible basis for the decay of evolutionary predictability. An epoch ends not after a fixed time, but when the system's internal dynamics have changed significantly, measured by the deviation of the current sensitivity vector from the initial prediction
+# The Forecast Horizon: Where Prediction Fails
+One of the most important conceptual contributions of this framework is the Forecast Horizon, which provides a mechanistic explanation for why evolutionary prediction inevitably breaks down. Unlike traditional models that assume constant genetic architectures, this simulation explicitly tracks how the developmental system itself evolves.
+
+An epoch ends not arbitrarily, but when the system's internal dynamics have fundamentally changed:
 
 $$
 ||s_{current} - s_{start}|| / ||s_{start}|| > 0.25
 $$
 
-This visually connects the macroscopic pattern of evolution to the microscopic changes in the underlying developmental rules, reinforcing the idea that evolvability is not a static property but is itself an evolving feature of the system.
+This 25% threshold marks the point where the original sensitivity vector, our prediction of how the system will respond to mutations, has become unreliable. The developmental landscape has been reshaped by evolution itself. This creates a natural limit to predictability. We can forecast evolution accurately within an epoch, but as the GRN structure changes, new sensitivities emerge and old predictions fail.
 
-Models like this one serve as a crucial bridge between the formal mathematical theory of developmental dynamics and a more intuitive, visual grasp of its evolutionary consequences. By visualizing the evolution of the sensitivity map, the simulation reinforces the concept that development is not an inscrutable black box but a structured, generative process that imposes predictable biases on the variation available to selection. This framework's ability to mechanistically link plasticity with evolvability moves beyond simple forecasting and opens new avenues for exploring the concept of **evolutionary control**, where a deep understanding of developmental rules could be used to guide or accelerate adaptation.
+The white diamonds in our animation mark these Forecast Horizons, moments when evolution has fundamentally restructured the rules governing what variation is possible. This visually reinforces a key insight: the developmental system and evolutionary trajectory co-evolve, each reshaping the other in an ongoing dance.
+
+# Evolvability as an Evolving Property
+Perhaps the most striking feature visible in the trajectories is that evolvability itself evolves. Each epoch change marks not just a new position in phenotype space, but a reorganization of the system's capacity to generate future variation. As regulatory connections strengthen or weaken, new sensitivities emerge. What was once difficult to evolve may become easy; what was once evolvable may become constrained.
+
+This has profound implications for understanding long-term evolution. Organisms are not static bundles of traits being shaped by external selection. They are active participants in their own evolution, with developmental systems that determine not just what they are, but what they can become. The GRN is simultaneously the object of evolution and the generator of evolutionary potential.
+
+# Bridging Theory and Intuition
+Models like this one serve as a crucial bridge between formal mathematical theory and intuitive understanding. The dynamical systems framework (with its Jacobian matrices, sensitivity vectors, and differential equations) can seem abstract and impenetrable. But when we visualize trajectories fanning out across phenotype space, when we see sensitivity vectors rotating as epochs change, and when we watch the lineages progress, the mathematics becomes tangible.
+
+The simulation reinforces the concept that development is not an inscrutable black box but a structured, generative process that imposes predictable, if temporary, biases on the variation available to selection. By making the invisible visible, transforming abstract developmental dynamics into concrete evolutionary trajectories, this tool helps build intuition about how mechanistic processes at one level (gene regulation) constrain and facilitate outcomes at another (phenotypic evolution).
 
 ---
 
