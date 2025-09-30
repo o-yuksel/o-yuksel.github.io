@@ -127,7 +127,7 @@ Models like this one serve as a crucial bridge between the formal mathematical t
 
 {% raw %}
 
-```html
+```text
 //=========================================================================
 // ALGORITHM: Mechanistic Forecasting of Evolutionary Trajectories
 //=========================================================================
