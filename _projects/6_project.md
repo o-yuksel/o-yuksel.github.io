@@ -5,7 +5,7 @@ description: "A simulation demonstrating how the pace of environmental change di
 img: assets/img/publication_preview/Scenario1_Slow_Speed.webp
 importance: 1
 category: work
-related_publications: true
+related_publications: false
 selected: true
 ---
 
@@ -60,7 +60,7 @@ This comparative simulation provides a powerful, visual demonstration of how the
 This visually reinforces the concept that plasticity can "take the lead" in adaptive evolution, serving as a crucial first step that allows a population to persist in a new environment while slower genetic changes follow.
 
 {% raw %}
-```plaintext
+```text
 //=========================================================================
 // ALGORITHM: GRN Adaptation to a Moving Optimum
 //=========================================================================
