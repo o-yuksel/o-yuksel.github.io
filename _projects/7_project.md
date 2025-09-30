@@ -12,7 +12,7 @@ importance: 1
 
 category: work
 
-related_publications: true
+related_publications: false
 
 selected: true
 
