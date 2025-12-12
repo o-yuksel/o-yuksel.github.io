@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Indie Researcher | MSc. | Immersed in Game Theory | Former Professionoal Gamer
+subtitle: Indie Researcher | MSc. Biotechnology | Evolutionary Dynamics
 
 profile:
   align: right
@@ -20,4 +20,4 @@ social: true # includes social icons at the bottom of the page
 projects: true #
 ---
 
-Welcome! I'm **Özgür**, an **M.Sc.** graduate in Biotechnology from [**Yeditepe University, Istanbul**](https://fbe.yeditepe.edu.tr/en). My projects span **evolutionary theory**, **game dynamics**, and **developmental mechanisms**, with a focus on building models that reveal how traits and strategies emerge, interact, and evolve. I aim to move beyond fixed assumptions by integrating **frequency-dependent selection**, **trait correlations**, and **self-developing processes** into new theoretical frameworks. Ultimately, my work seeks to deepen our understanding of **variation**, **adaptation**, and the open-ended possibilities of **evolution**.
+Welcome! I'm **Özgür**, an **M.Sc.** graduate in Biotechnology from [**Yeditepe University**](https://fbe.yeditepe.edu.tr/en). My work asks where **strategies come from** before asking which ones are selected. I build models where **gene regulatory networks** discover cooperation, **developmental bias** shapes evolutionary trajectories, and **network architecture** determines what selection can find. Rather than treating structure as a fixed parameter, I model how it **co-evolves** with the processes unfolding on it. Current projects span **emergent cooperation** in evolving GRNs, **cancer resistance dynamics**, and the **predictability of evolution**.
