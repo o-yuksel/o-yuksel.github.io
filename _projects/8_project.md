@@ -6,6 +6,7 @@ img: assets/img/publication_preview/tft_flips.webp
 importance: 1
 category: work
 related_publications: false
+selected: true
 redirect: /tit-for-tat-flips/
 ---
 
