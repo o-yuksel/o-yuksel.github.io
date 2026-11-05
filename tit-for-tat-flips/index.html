@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="author" content="Özgür Yüksel">
+<meta name="description" content="An interactive chart: why natural selection on tit-for-tat flips with population size in a classic cooperation model (Nowak et al. 2004, Fig 1a), and what causes each flip.">
+<title>Tit-for-Tat Selection Flips</title>
+<style>:root{color-scheme:light}body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap");
+:root {
+  --bg: #f2f3f5; --surface: #fcfcfd; --ink: #15181d; --ink-2: #474d57; --muted: #646a74;
+  --hair: #e1e4e9; --axis: #b9bec6; --wash: rgba(21, 24, 29, 0.035);
+  --accent: #2a78d6; --on-accent: #ffffff; --zoneA: #d97b1a; --zoneB: #8a5bd6; --ref: #8d939d;
+  --shadow: rgba(0, 0, 0, 0.12);
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1113; --surface: #15171a; --ink: #e8eaed; --ink-2: #bcc1c8; --muted: #8f959e;
+    --hair: #262a30; --axis: #424852; --wash: rgba(232, 234, 237, 0.045);
+    --accent: #3987e5; --on-accent: #0f1113; --zoneA: #cf7a2c; --zoneB: #9873e0; --ref: #7b818b; --shadow: rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1113; --surface: #15171a; --ink: #e8eaed; --ink-2: #bcc1c8; --muted: #8f959e;
+  --hair: #262a30; --axis: #424852; --wash: rgba(232, 234, 237, 0.045);
+  --accent: #3987e5; --on-accent: #0f1113; --zoneA: #cf7a2c; --zoneB: #9873e0; --ref: #7b818b; --shadow: rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6; margin: 0; }
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: clamp(28px, 5vw, 60px) 44px;
+  display: grid; gap: clamp(32px, 5vw, 52px);
+}
+.wrap > * { min-width: 0; }
+.prose { max-width: 68ch; }
+h1, h2 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem); line-height: 1.14; }
+h2 { font-size: 1.25rem; line-height: 1.3; }
+h3 { font-size: 1.0625rem; font-weight: 600; margin: 0 0 6px; }
+p { margin: 0; }
+.eyebrow { font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+header { display: grid; gap: 16px; }
+.lede { color: var(--ink-2); font-size: 1.125rem; }
+.setup { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; color: var(--ink-2); }
+.setup b { color: var(--ink); font-weight: 600; }
+i.v { font-family: var(--font-display); font-size: 1.06em; padding-right: 0.1em; }
+
+.key { display: inline-block; width: 18px; height: 0; border-top: 2px solid currentColor; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+.key.acc { color: var(--accent); }
+.key.ref { color: var(--ref); }
+
+.figure { background: var(--surface); border: 1px solid var(--hair); border-radius: 10px; padding: clamp(14px, 2.4vw, 24px); display: grid; gap: 20px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 0.875rem; color: var(--ink-2); }.chart-wrap { position: relative; width: 100%; }
+.chart-wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart-wrap svg:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.tip { position: absolute; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--hair);
+  box-shadow: 0 4px 16px var(--shadow); border-radius: 8px; padding: 8px 10px; font-size: 0.8125rem; line-height: 1.45; min-width: 170px; z-index: 2; }
+.tip .tn { color: var(--muted); margin-bottom: 4px; }
+.tip .row { display: grid; grid-template-columns: 20px auto 1fr; gap: 6px; align-items: baseline; }
+.tip .row b { font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+.tip .row span:not(.key) { color: var(--muted); }
+.readout { font-size: 1.0625rem; font-weight: 600; color: var(--ink); }
+
+.switches { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.sw { display: grid; gap: 4px; min-width: 0; }
+.sw > label { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; cursor: pointer; font-weight: 600; line-height: 1.3; }
+.sw label input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.track { width: 42px; height: 24px; border-radius: 12px; border: 1px solid var(--axis); background: var(--wash); position: relative; transition: background 0.15s; }
+.track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink-2); transition: transform 0.15s, background 0.15s; }
+.sw input:checked + .track { background: var(--accent); border-color: var(--accent); }
+.sw input:checked + .track::after { transform: translateX(18px); background: var(--surface); }
+.sw input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .track, .track::after { transition: none; } }
+.note { font-size: 0.875rem; color: var(--muted); line-height: 1.45; padding-left: 54px; }
+@media (max-width: 420px) { .note { padding-left: 0; } }
+
+.methods { display: grid; gap: 10px; max-width: 76ch; font-size: 0.9375rem; color: var(--ink-2); }
+summary { cursor: pointer; font-weight: 600; }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.table-scroll { overflow-x: auto; margin-top: 12px; max-width: 100%; }
+table { border-collapse: collapse; font-size: 0.875rem; min-width: 320px; }
+th, td { padding: 6px 12px; text-align: right; border-bottom: 1px solid var(--hair); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { font-weight: 600; color: var(--ink-2); }
+td { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.8125rem; }
+ol.refs { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; font-size: 0.9375rem; color: var(--ink-2); max-width: 80ch; }
+ol.refs a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 2px; overflow-wrap: anywhere; }
+footer { font-size: 0.875rem; color: var(--muted); border-top: 1px solid var(--hair); padding-top: 16px; }
+footer a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 2px; }
+.reach-slider { display: grid; gap: 8px; }
+.reach-slider label { font-weight: 600; line-height: 1.35; }
+.reach-slider .rout { font-family: var(--font-mono); font-weight: 500; color: var(--accent); white-space: nowrap; }
+.reach-slider input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); }
+.reach-slider input[type="range"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.controls { display: grid; gap: 18px; }
+.badge { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 3px; border-radius: 50%; background: var(--ink); color: var(--surface); font-size: 11px; font-weight: 700; line-height: 1; }
+.sw.groups .reach-slider { padding-left: 54px; margin-top: 6px; }
+@media (max-width: 420px) { .sw.groups .reach-slider { padding-left: 0; } }
+.reach-slider input[type="range"]:disabled { opacity: 0.45; }
+.trackwrap { position: relative; padding-bottom: 30px; }
+.trackwrap input[type="range"] { display: block; }
+.stdband { position: absolute; left: 8px; top: 21px; width: calc((100% - 16px) * 0.1648); height: 4px; border-radius: 2px; background: var(--ink-2); pointer-events: none; }
+.stdcap { position: absolute; left: 8px; top: 28px; font-size: 0.75rem; color: var(--muted); line-height: 1; }
+.tsub { margin-top: 2px; padding-left: 0; }
+.tnote { white-space: nowrap; font-size: 0.8125rem; font-weight: 400; color: var(--muted); }
+
+.story { display: grid; gap: 12px; }
+.stepper { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 960px) { .stepper { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .stepper { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pill { display: flex; align-items: center; gap: 10px; min-width: 0; font: inherit; font-weight: 600; font-size: 0.9375rem; line-height: 1.25; text-align: left; color: var(--ink); background: var(--surface); border: 1px solid var(--axis); border-radius: 999px; padding: 9px 16px 9px 10px; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+.pill .pn { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--hair); color: var(--ink); font-size: 0.8125rem; }
+.pill:hover { border-color: var(--accent); }
+.pill[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.pill[aria-pressed="true"] .pn { background: var(--on-accent); color: var(--accent); }
+.pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stepcap { font-size: 1.0625rem; color: var(--ink-2); min-height: 1.6em; max-width: 70ch; }
+.zbox { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+.zbox.a { background: var(--zoneA); opacity: 0.55; }
+.zbox.b { background: var(--zoneB); opacity: 0.55; }
+.nrho { font-size: 0.875rem; color: var(--muted); max-width: 72ch; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 960px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+.pic .grp { fill: none; stroke: var(--ink-2); stroke-width: 1.5; opacity: 0.55; }
+.card { background: var(--surface); border: 1px solid var(--hair); border-radius: 10px; padding: 16px 18px 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card h3 { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; margin: 0; font-size: 1.0625rem; line-height: 1.35; }
+.card p { color: var(--ink-2); font-size: 0.9375rem; }
+.card.off h3, .card.off p { color: var(--muted); }
+.card.off .pic { opacity: 0.35; }
+.card.off .badge { background: var(--muted); }
+.pic { width: 100%; height: auto; max-height: 130px; }
+.pic .c-blue { fill: var(--accent); }
+.pic .c-grey { fill: var(--ref); }
+.pic .arrow { stroke: var(--ink-2); stroke-width: 2; }
+.pic .arrowhead { fill: var(--ink-2); }
+.pic .piclabel { fill: var(--ink-2); font-size: 12px; font-family: var(--font-body); }
+.figure { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); grid-template-areas: "chart panel" "read panel"; gap: 14px 28px; align-items: start; }
+.chartbox { grid-area: chart; min-width: 0; display: grid; gap: 12px; }
+.readbox { grid-area: read; min-width: 0; display: grid; gap: 8px; }
+.panel { grid-area: panel; min-width: 0; display: grid; gap: 14px; align-content: start; }
+@media (max-width: 900px) { .figure { grid-template-columns: minmax(0, 1fr); grid-template-areas: "chart" "read" "panel"; } }
+.panel .controls { gap: 14px; }
+.panel .sw > label { font-size: 0.9375rem; }
+.panel .note { font-size: 0.8125rem; line-height: 1.4; }
+.panel .reach-slider label { font-size: 0.875rem; font-weight: 600; }
+details.fold { background: var(--surface); border: 1px solid var(--hair); border-radius: 10px; padding: 4px 18px; }
+details.fold > summary { padding: 12px 0; font-size: 1.0625rem; }
+.foldbody { display: grid; gap: 16px; padding: 4px 0 18px; }
+.foldbody > * { min-width: 0; }
+.foldbody h3 { font-size: 1.0625rem; margin: 8px 0 0; }
+.methods h4 { font-size: 0.9375rem; margin: 6px 0 0; color: var(--ink); }
+@keyframes fadein { from { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) { svg.anim .cur-path, svg.anim .zone { animation: fadein 250ms ease-out; } }
+@media (prefers-reduced-motion: reduce) { .pill { transition: none; } }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <p class="eyebrow">Nowak et al. 2004, Fig 1A · a toy model</p>
+    <h1>Why selection on tit-for-tat flips with population size</h1>
+    <p class="lede prose">In a classic model of cooperation (Nowak et al. 2004, Fig 1A), natural selection favors a new tit-for-tat player only in populations of middle size, so selection flips twice as the population grows. Each flip has its own cause, which you can switch off below. Splitting the population into groups can remove Flip 2 (small groups) or add a third flip (large groups):</p>
+    <ul class="setup prose" aria-label="The three flips">
+      <li><b>Very small populations (2 or 3 players).</b> A lone tit-for-tat never meets its own kind, only the few rivals it competes with, and its friendly first move helps each of them (Flip 1).</li>
+      <li><b>Large populations (over about 1,700).</b> Tit-for-tat only pays once it is common, and in a large population luck rarely carries one copy that far (Flip 2).</li>
+      <li><b>Populations split into large groups.</b> Once tit-for-tat wins one group, it almost always wins the others, so adding groups does not lower its chance, while a neutral mutation&rsquo;s chance keeps falling (Flip 3).</li>
+    </ul>
+    <ul class="setup prose" aria-label="How the game works">
+      <li><b>The game.</b> Two players meet and play 10 rounds. In each round, each player cooperates or cheats.</li>
+      <li><b>Points per round.</b> Both cooperate: 3 each. One cheats: the cheat gets 5 (the temptation, <i class="v">T</i>, which a slider below changes), the cooperator 0. Both cheat: 1 each.</li>
+      <li><b>The two strategies.</b> Tit-for-tat cooperates first, then copies its partner&rsquo;s last move. Always-defect cheats every round. So when they meet, tit-for-tat is cheated in round 1, and both cheat from then on.</li>
+      <li><b>Totals over 10 rounds.</b> Two tit-for-tats: 30 each. Two defectors: 10 each. Tit-for-tat against a defector: 9, the defector <span class="v-c">14</span>.</li>
+      <li><b>Evolution.</b> Players with more points leave more offspring.</li>
+      <li><b>&ldquo;Favored&rdquo;</b> means that one new tit-for-tat takes over the population more often than a neutral mutation would. Among <i class="v">N</i> players, a neutral mutation takes over with a chance of 1 in <i class="v">N</i>, so the chance tit-for-tat must beat gets smaller as the population grows.</li>
+    </ul>
+  </header>
+
+  <div class="story">
+    <nav class="stepper" role="group" aria-label="Story steps">
+    <button type="button" class="pill" id="step-1" aria-pressed="true"><span class="pn" aria-hidden="true">1</span><span>Nowak's curve</span></button>
+    <button type="button" class="pill" id="step-2" aria-pressed="false"><span class="pn" aria-hidden="true">2</span><span>Meet themselves</span></button>
+    <button type="button" class="pill" id="step-3" aria-pressed="false"><span class="pn" aria-hidden="true">3</span><span>Round 1 free</span></button>
+    <button type="button" class="pill" id="step-4" aria-pressed="false"><span class="pn" aria-hidden="true">4</span><span>Split into groups</span></button>
+    <button type="button" class="pill" id="step-5" aria-pressed="false"><span class="pn" aria-hidden="true">5</span><span>Three flips</span></button>
+    </nav>
+    <p class="stepcap" id="stepcap" aria-live="polite"></p>
+  </div>
+
+  <section class="figure" aria-label="Interactive chart and controls">
+    <div class="chartbox">
+      <div class="legend">
+        <span><span class="key ref" aria-hidden="true"></span><span id="leg-ref">Nowak et al. 2004 (as published)</span></span>
+        <span><span class="key acc" aria-hidden="true"></span>Tit-for-tat, as the switches set it</span>        <span><span class="zbox a" aria-hidden="true"></span>Flip 1: partner is a rival</span>
+        <span><span class="zbox b" aria-hidden="true"></span>Flip 2: too rare to get going</span>
+      </div>
+      <div class="chart-wrap" id="chart-wrap">
+        <svg id="chart" tabindex="0" role="img" aria-label="How many times as likely one new tit-for-tat is to take over as a neutral mutation, against population size N, both on log scales, for the published tit-for-tat curve and tit-for-tat as the controls set it. Use the left and right arrow keys to read values."></svg>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+    </div>
+    <aside class="panel" aria-label="Controls">
+      <div class="controls">
+      <div class="switches">
+        <p class="note tsub">The first two switches are modelling devices, not biology: each tests one flip&rsquo;s cause.</p>
+        <div class="sw">
+          <label for="sw-meet"><input type="checkbox" role="switch" id="sw-meet"><span class="track" aria-hidden="true"></span><span>Players can meet themselves</span></label>
+          <p class="note">A lone tit-for-tat then also plays itself, not only rivals. This removes Flip 1.</p>
+        </div>
+        <div class="sw">
+          <label for="sw-free"><input type="checkbox" role="switch" id="sw-free"><span class="track" aria-hidden="true"></span><span>Being cheated in round 1 costs tit-for-tat nothing</span></label>
+          <p class="note">Tit-for-tat then earns 10 against a defector, the same as two defectors earn against each other, so being cheated no longer holds it back. This removes Flip 2.</p>
+        </div>
+      </div>
+      <div class="sw groups">
+        <label for="sw-groups"><input type="checkbox" role="switch" id="sw-groups"><span class="track" aria-hidden="true"></span><span>Split into groups (rare migration)</span></label>
+        <p class="note">Competition happens within groups; migrants move rarely between them.</p>
+        <div class="reach-slider">
+          <label for="group-n">Group size: <output id="group-out" for="group-n" class="rout">5</output></label>
+          <input type="range" id="group-n" min="0" max="1000" step="1" value="108" disabled>
+        </div>
+      </div>
+      <div class="reach-slider">
+        <label for="tft-T">Temptation, <i class="v">T</i>: <output id="tft-out" for="tft-T" class="rout">5.00</output></label>
+        <div class="trackwrap">
+          <input type="range" id="tft-T" min="3.05" max="20.95" step="0.05" value="5">
+          <span class="stdband" aria-hidden="true"></span>
+          <span class="stdcap" aria-hidden="true">standard</span>
+        </div>
+        <p class="note tsub">Nowak: 5 &middot; standard Prisoner's Dilemma: 3 &lt; <i class="v">T</i> &lt; 6 (cheating tempts, yet steady cooperation pays best) <span class="tnote" id="tft-note" hidden>&middot; not a standard Prisoner's Dilemma</span></p>
+      </div>
+</div>
+    </aside>
+    <div class="readbox">
+      <div class="readout" id="readout" aria-live="polite"></div>
+      <p class="nrho">The vertical axis shows how many times as likely one new tit-for-tat is to take over as a neutral mutation. Above 1, tit-for-tat is favored.</p>
+    </div>
+  </section>
+
+  <section class="cards" aria-label="Why each flip happens">
+    <article class="card" id="card1">
+      <svg class="pic" viewBox="0 0 200 90" aria-hidden="true"><circle cx="48" cy="45" r="17" class="c-blue"/><circle cx="152" cy="45" r="17" class="c-grey"/><line x1="70" y1="45" x2="124" y2="45" class="arrow"/><polygon points="130,45 120,39 120,51" class="arrowhead"/><text x="97" y="36" text-anchor="middle" class="piclabel">help</text></svg>
+      <h3><span class="badge" aria-hidden="true">1</span><span id="card1-title">Flip 1: your partner is your rival</span></h3>
+      <p id="card1-text">It never meets its own kind. A lone tit-for-tat plays only defectors, since nobody plays against itself, so all the help from its first-round cooperation goes to its rivals: each gets <span class="v-gain">4</span> more points than it would from another defector (<span class="v-c">14</span> instead of 10). In a population of <i class="v">N</i>, that raises each rival&rsquo;s average by <span class="v-gain">4</span>/(<i class="v">N</i>&minus;1): a lot when <i class="v">N</i> is small, almost nothing when <i class="v">N</i> is large.</p>
+    </article>
+    <article class="card" id="card2">
+      <svg class="pic" viewBox="0 0 200 90" aria-hidden="true"><circle cx="34" cy="14.0" r="4.6" class="c-grey"/><circle cx="56" cy="14.0" r="4.6" class="c-grey"/><circle cx="78" cy="14.0" r="4.6" class="c-grey"/><circle cx="100" cy="14.0" r="4.6" class="c-grey"/><circle cx="122" cy="14.0" r="4.6" class="c-grey"/><circle cx="144" cy="14.0" r="4.6" class="c-grey"/><circle cx="166" cy="14.0" r="4.6" class="c-grey"/><circle cx="34" cy="26.5" r="4.6" class="c-grey"/><circle cx="56" cy="26.5" r="4.6" class="c-grey"/><circle cx="78" cy="26.5" r="4.6" class="c-grey"/><circle cx="100" cy="26.5" r="4.6" class="c-grey"/><circle cx="122" cy="26.5" r="4.6" class="c-grey"/><circle cx="144" cy="26.5" r="4.6" class="c-grey"/><circle cx="166" cy="26.5" r="4.6" class="c-grey"/><circle cx="34" cy="39.0" r="4.6" class="c-grey"/><circle cx="56" cy="39.0" r="4.6" class="c-grey"/><circle cx="78" cy="39.0" r="4.6" class="c-grey"/><circle cx="100" cy="39.0" r="6.5" class="c-blue"/><circle cx="122" cy="39.0" r="4.6" class="c-grey"/><circle cx="144" cy="39.0" r="4.6" class="c-grey"/><circle cx="166" cy="39.0" r="4.6" class="c-grey"/><circle cx="34" cy="51.5" r="4.6" class="c-grey"/><circle cx="56" cy="51.5" r="4.6" class="c-grey"/><circle cx="78" cy="51.5" r="4.6" class="c-grey"/><circle cx="100" cy="51.5" r="4.6" class="c-grey"/><circle cx="122" cy="51.5" r="4.6" class="c-grey"/><circle cx="144" cy="51.5" r="4.6" class="c-grey"/><circle cx="166" cy="51.5" r="4.6" class="c-grey"/><circle cx="34" cy="64.0" r="4.6" class="c-grey"/><circle cx="56" cy="64.0" r="4.6" class="c-grey"/><circle cx="78" cy="64.0" r="4.6" class="c-grey"/><circle cx="100" cy="64.0" r="4.6" class="c-grey"/><circle cx="122" cy="64.0" r="4.6" class="c-grey"/><circle cx="144" cy="64.0" r="4.6" class="c-grey"/><circle cx="166" cy="64.0" r="4.6" class="c-grey"/><circle cx="34" cy="76.5" r="4.6" class="c-grey"/><circle cx="56" cy="76.5" r="4.6" class="c-grey"/><circle cx="78" cy="76.5" r="4.6" class="c-grey"/><circle cx="100" cy="76.5" r="4.6" class="c-grey"/><circle cx="122" cy="76.5" r="4.6" class="c-grey"/><circle cx="144" cy="76.5" r="4.6" class="c-grey"/><circle cx="166" cy="76.5" r="4.6" class="c-grey"/></svg>
+      <h3><span class="badge" aria-hidden="true">2</span><span id="card2-title">Flip 2: too rare to get going</span></h3>
+      <p id="card2-text">It only pays once it is common. Against a defector, tit-for-tat earns 9 points and the defector <span class="v-c">14</span>; two defectors earn 10 each, and two tit-for-tats 30 each. Tit-for-tat beats defectors only once it makes up <span class="v-bar">about 1 in 17</span> of the population. One new copy has to reach that share by luck, and as the population grows, its chance of doing so falls faster than a neutral mutation&rsquo;s chance of taking over.</p>
+    </article>
+    <article class="card" id="card3">
+      <svg class="pic" viewBox="0 0 200 90" aria-hidden="true"><rect x="6" y="24" width="46" height="46" rx="10" class="grp"/><rect x="78" y="24" width="46" height="46" rx="10" class="grp"/><rect x="150" y="24" width="46" height="46" rx="10" class="grp"/><circle cx="18" cy="36" r="5" class="c-blue"/><circle cx="40" cy="36" r="5" class="c-blue"/><circle cx="29" cy="47" r="5" class="c-blue"/><circle cx="18" cy="58" r="5" class="c-blue"/><circle cx="40" cy="58" r="5" class="c-blue"/><circle cx="90" cy="36" r="5" class="c-grey"/><circle cx="112" cy="36" r="5" class="c-grey"/><circle cx="101" cy="47" r="5" class="c-blue"/><circle cx="90" cy="58" r="5" class="c-grey"/><circle cx="112" cy="58" r="5" class="c-grey"/><circle cx="162" cy="36" r="5" class="c-grey"/><circle cx="184" cy="36" r="5" class="c-grey"/><circle cx="173" cy="47" r="5" class="c-grey"/><circle cx="162" cy="58" r="5" class="c-grey"/><circle cx="184" cy="58" r="5" class="c-grey"/><line x1="54" y1="47" x2="70" y2="47" class="arrow"/><polygon points="76,47 68,42 68,52" class="arrowhead"/><text x="65" y="16" text-anchor="middle" class="piclabel">migrant</text></svg>
+      <h3><span class="badge" aria-hidden="true">3</span><span id="card3-title">Flip 3: from one group to the rest</span></h3>
+      <p id="card3-text">Take groups of 2,000 at <i class="v">T</i>&nbsp;=&nbsp;5. With one group, a new tit-for-tat is 0.7 times as likely as a neutral mutation to take over, held back as in Flip 2. With two groups it is 1.4 times as likely. Once it wins one group it almost always wins the other, so its own chance stays the same while the neutral chance halves. Its migrants usually fail in a defector group, as in Flip 2, but now and then one succeeds. A defector that migrates into a tit-for-tat group earns 14 points a game to its neighbours&rsquo; 30 and almost never takes over, so groups switch almost only one way.</p>
+    </article>
+  </section>
+
+  <details class="fold">
+    <summary>Where the numbers come from: method and sources</summary>
+    <div class="foldbody">
+      <h3>Method</h3>
+      <div class="methods">
+      <p>As in the <i class="v">w</i> = 0.1 curve of Nowak et al.'s Fig 1A, a single tit-for-tat (TFT) player starts among <i class="v">N</i>&minus;1 always-defect (ALLD) players in a Moran process. They play a 10-round repeated Prisoner's Dilemma with <i class="v">T</i>, <i class="v">R</i>, <i class="v">P</i>, <i class="v">S</i> = 5, 3, 1, 0, giving payoffs <i class="v">a</i> = 30 (TFT against TFT), <i class="v">b</i> = 9 (TFT against ALLD), <i class="v">c</i> = 14 (ALLD against TFT) and <i class="v">d</i> = 10 (ALLD against ALLD). With <i class="v">i</i> tit-for-tat players, fitness is <i class="v">f<sub>i</sub></i> = 1 &minus; <i class="v">w</i> + <i class="v">w</i>[<i class="v">a</i>(<i class="v">i</i>&minus;1) + <i class="v">b</i>(<i class="v">N</i>&minus;<i class="v">i</i>)]/(<i class="v">N</i>&minus;1) for tit-for-tat and <i class="v">g<sub>i</sub></i> = 1 &minus; <i class="v">w</i> + <i class="v">w</i>[<i class="v">c i</i> + <i class="v">d</i>(<i class="v">N</i>&minus;<i class="v">i</i>&minus;1)]/(<i class="v">N</i>&minus;1) for always-defect. The fixation probability is <i class="v">&rho;</i> = 1/(1 + &Sigma;<sub><i class="v">k</i>=1</sub><sup><i class="v">N</i>&minus;1</sup> &Pi;<sub><i class="v">i</i>=1</sub><sup><i class="v">k</i></sup> <i class="v">g<sub>i</sub></i>/<i class="v">f<sub>i</sub></i>), computed exactly in logarithms. The chart plots <i class="v">N</i>·<i class="v">&rho;</i>: a neutral mutation takes over with probability 1/<i class="v">N</i>, so above 1 tit-for-tat is favored.</p>
+      <p>Switch 1 (players can meet themselves) replaces these with <i class="v">f<sub>i</sub></i> = 1 &minus; <i class="v">w</i> + <i class="v">w</i>[<i class="v">a i</i> + <i class="v">b</i>(<i class="v">N</i>&minus;<i class="v">i</i>)]/<i class="v">N</i> and <i class="v">g<sub>i</sub></i> = 1 &minus; <i class="v">w</i> + <i class="v">w</i>[<i class="v">c i</i> + <i class="v">d</i>(<i class="v">N</i>&minus;<i class="v">i</i>)]/<i class="v">N</i>. Switch 2 (being cheated in round 1 costs nothing) sets <i class="v">b</i> = <i class="v">d</i> = 10 and leaves <i class="v">c</i> unchanged. <i class="v">T</i> sets <i class="v">c</i> = <i class="v">T</i> + 9. Nowak's value is <i class="v">T</i> = 5. Between 3 and 6 the game is a standard Prisoner's Dilemma (<i class="v">T</i> &gt; <i class="v">R</i> and 2<i class="v">R</i> &gt; <i class="v">T</i> + <i class="v">S</i>). Above 6, taking turns at cheating would pay more than steady cooperation, so the game is no longer standard; tit-for-tat and always-defect never take turns, so the model's numbers stay valid.</p>
+      <p>Groups, rare-migration limit: with <i class="v">D</i> groups of <i class="v">n</i> (total <i class="v">N</i> = <i class="v">nD</i>), <i class="v">N</i>·<i class="v">&rho;</i> = <i class="v">N</i>·<i class="v">&rho;<sub>A</sub></i>(<i class="v">n</i>)·(1 &minus; <i class="v">r</i>)/(1 &minus; <i class="v">r<sup>D</sup></i>), where <i class="v">&rho;<sub>A</sub></i>(<i class="v">n</i>) and <i class="v">&rho;<sub>B</sub></i>(<i class="v">n</i>) are the exact within-group fixation probabilities of one tit-for-tat among defectors and of one defector among tit-for-tat, and <i class="v">r</i> = <i class="v">&rho;<sub>B</sub></i>(<i class="v">n</i>)/<i class="v">&rho;<sub>A</sub></i>(<i class="v">n</i>). Migration is taken to be rare compared with takeover within a group, and every group sends out migrants at the same rate. Each group then holds one strategy whenever a migrant arrives, so the number of tit-for-tat groups moves up or down one at a time, each step down being <i class="v">r</i> times as likely as a step up. Starting from one tit-for-tat group, this gives the chance (1 &minus; <i class="v">r</i>)/(1 &minus; <i class="v">r</i><sup><i class="v">D</i></sup>) of reaching all <i class="v">D</i> groups. Populations no larger than <i class="v">n</i> form a single group, so there the curve is Nowak's.</p>
+      <p>Crossings are found on a log grid of about 200 sizes from 2 to 10,000 and refined by integer bisection; the page reports the first or last favored <i class="v">N</i>; with groups on, the curve treats the number of groups <i class="v">N</i>/<i class="v">n</i> as continuous, so it passes through every whole-group value (<i class="v">N</i> = <i class="v">n</i>, 2<i class="v">n</i>, 3<i class="v">n</i>, &hellip;) and is smooth between them. With both switches off, the curve crosses 1 between <i class="v">N</i> = 3 and 4 and between <i class="v">N</i> = 1,732 and 1,733. The first matches the weak-selection minimum of 3.07 that follows from the formula in Nowak et al.'s Fig 1 caption; the paper shows the second only in its figure.</p>
+      </div>
+      <h3>Details</h3>
+      <div class="methods">
+        <h4>Flip 1, small populations: your partner is your rival</h4>
+        <p>In Nowak et al.'s model a player's payoff is its average over games with all the others, never with itself. A lone tit-for-tat therefore plays only defectors, and each of those games gives the defector <i class="v">T</i>&minus;1 more points than a game between two defectors (4 at Nowak&rsquo;s <i class="v">T</i> = 5). At <i class="v">N</i> = 2, its only partner is its only rival. In a population of <i class="v">N</i>, each defector's average payoff rises by (<i class="v">T</i>&minus;1)/(<i class="v">N</i>&minus;1), so the effect fades as <i class="v">N</i> grows. Measured against the whole population, a player's relatedness to any other player is &minus;1/(<i class="v">N</i>&minus;1) (Patel et al. 2020). Letting players meet themselves removes the effect: a lone tit-for-tat then also plays its own kind (itself, worth 30 points a game), and Flip 1 disappears.</p>
+        <h4>Flip 2, large populations: too rare to get going</h4>
+        <p>Tit-for-tat earns more than always-defect only once it makes up more than a share 1/(22&minus;<i class="v">T</i>) of the population, about 1 in 17 at <i class="v">T</i> = 5. Nowak et al. call this share the invasion barrier. A single new copy must drift up to it against selection. The larger the population, the more copies that takes, and the less likely drift gets there. In Nowak et al.'s words: &ldquo;In a very large population it is extremely unlikely to reach the invasion barrier when starting with a single TFT player.&rdquo; Making round 1 cost tit-for-tat nothing removes its loss while rare, and Flip 2 disappears. Across the standard Prisoner's Dilemma range of <i class="v">T</i> (3 to 6), Flip 2 moves from about <i class="v">N</i> = 2,000 down to 1,600, while Flip 1 stays at <i class="v">N</i> = 3 to 4. Above <i class="v">T</i> = 6 the two flips move toward each other, and from <i class="v">T</i> &asymp; 17.1 tit-for-tat is not favored at any size.</p>
+        <h4>In a population of groups</h4>
+        <p>Suppose the population is split into groups of <i class="v">n</i> that compete internally and rarely exchange migrants. A new tit-for-tat first takes over its own group or dies out there, which is Nowak's question at size <i class="v">n</i>. Tit-for-tat groups then spread into defector groups through migrants. The numbers that follow are for Nowak&rsquo;s <i class="v">T</i> = 5. In groups of 2, tit-for-tat takes over its group less often than a neutral mutation and is not favored at any population size. In groups of 4 to 1,732, Flip 1 stays at <i class="v">N</i> = 4 and Flip 2 disappears: in a group of 5, for example, two copies of tit-for-tat already earn more than the defectors (14.25 against 12 points on average at <i class="v">T</i> = 5), so chance has only one copy to add. Groups larger than 1,732 show Flip 2 themselves. Tit-for-tat is then favored again once there are enough groups (Flip 3): with groups of 2,000, two groups are enough; larger groups need more of them.</p>
+      </div>
+    <details id="tv">
+      <summary>Table view of the plotted values</summary>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">N</th><th scope="col">Published</th><th scope="col">Tit-for-tat, as set</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </details>
+      <h3>Sources</h3>
+    <ol class="refs">
+      <li>Nowak MA, Sasaki A, Taylor C, Fudenberg D (2004) Emergence of cooperation and evolutionary stability in finite populations. <i>Nature</i> 428:646&ndash;650. <a href="https://doi.org/10.1038/nature02414">doi:10.1038/nature02414</a></li>
+      <li>Patel M, West SA, Biernaskie JM (2020) Kin discrimination, negative relatedness, and how to distinguish between selfishness and spite. <i>Evolution Letters</i> 4:65&ndash;72. <a href="https://doi.org/10.1002/evl3.150">doi:10.1002/evl3.150</a> (states the &minus;1/(<i class="v">N</i>&minus;1) relatedness).</li>
+    </ol>
+    </div>
+  </details>
+
+  <footer><a href="https://o-yuksel.github.io/">Özgür Yüksel</a> · November 2026</footer>
+</main>
+
+<script>
+// Exact Moran process, one tit-for-tat (TFT) among N-1 always-defect (ALLD).
+// Nowak, Sasaki, Taylor & Fudenberg 2004, Fig 1A. Pure functions; Node and browser.
+const PAY = { a: 30, b: 9, c: 14, d: 10 };   // 10 rounds, T,R,P,S = 5,3,1,0
+const W_SEL = 0.1;  // intensity of selection, w
+
+// Moran process, one tit-for-tat among N-1 always-defect, in logs and log-sum-exp throughout.
+// s1: switch 1 (players can meet themselves); s2: switch 2 (cheated round costs TFT nothing: b = d);
+// T: the defector's first-round gain against TFT, c = T + 9 (Nowak: T = 5, c = 14).
+// Returns e, S with rho = e/(e+S), and logr = log of prod_{i=1}^{N-1} g_i/f_i (= rhoB/rhoA for a group of N).
+function moranParts(N, s1, s2, T) {
+  const { a, d } = PAY, b = s2 ? d : PAY.b, c = T + 9, w = W_SEL;
+  const Ls = new Float64Array(N);
+  let L = 0, M = 0;
+  for (let i = 1; i <= N - 1; i++) {
+    let f, g;
+    if (s1) {
+      f = 1 - w + w * (a * i + b * (N - i)) / N;
+      g = 1 - w + w * (c * i + d * (N - i)) / N;
+    } else {
+      f = 1 - w + w * (a * (i - 1) + b * (N - i)) / (N - 1);
+      g = 1 - w + w * (c * i + d * (N - i - 1)) / (N - 1);
+    }
+    L += Math.log(g / f);
+    Ls[i] = L;
+    if (L > M) M = L;
+  }
+  let S = 0;
+  for (let k = 1; k <= N - 1; k++) S += Math.exp(Ls[k] - M);
+  return { e: Math.exp(-M), S, logr: L };
+}
+// N*rho.
+function nP(N, s1, s2, T) {
+  const { e, S } = moranParts(N, s1, s2, T);
+  return N * e / (e + S);
+}
+
+// Within-group fixation of one tit-for-tat among n-1 defectors: rhoA, and log r, r = rhoB/rhoA.
+function groupParts(n, s1, s2, T) {
+  const { e, S, logr } = moranParts(n, s1, s2, T);
+  return { rhoA: e / (e + S), logr };
+}
+// Rare-migration limit, D = Ntot / n groups: N * rhoA * (1 - r) / (1 - r^D); 1/D when r = 1.
+function groupNPfrom(Ntot, n, parts) {
+  const D = Ntot / n, lr = parts.logr;
+  let factor;
+  if (Math.abs(lr) < 1e-12) factor = 1 / D;
+  else if (lr < 0) factor = Math.expm1(lr) / Math.expm1(D * lr);
+  else {
+    const x = D * lr;
+    const lnum = lr > 30 ? lr : Math.log(Math.expm1(lr));
+    const lden = x > 30 ? x : Math.log(Math.expm1(x));
+    factor = Math.exp(lnum - lden);
+  }
+  return Ntot * parts.rhoA * factor;
+}
+
+function makeGrid(n, nmin, nmax, extra) {
+  const set = new Set(extra);
+  for (let k = 0; k < n; k++) set.add(Math.round(Math.exp(Math.log(nmin) + (Math.log(nmax) - Math.log(nmin)) * k / (n - 1))));
+  return [...set].filter(v => v >= nmin && v <= nmax).sort((x, y) => x - y);
+}
+
+// Sign changes of N*rho - 1 on the grid, each refined by integer bisection.
+// Returns [{lo, hi, rising}] with lo, hi neighbouring integers, hi = lo + 1.
+function crossings(f, grid) {
+  const out = [];
+  let prev = f(grid[0]);
+  for (let k = 1; k < grid.length; k++) {
+    const cur = f(grid[k]);
+    if ((prev - 1) * (cur - 1) < 0) {
+      const rising = cur > 1;
+      let lo = grid[k - 1], hi = grid[k];
+      while (hi - lo > 1) {
+        const m = (lo + hi) >> 1;
+        if ((f(m) > 1) === rising) hi = m; else lo = m;
+      }
+      out.push({ lo, hi, rising });
+    }
+    prev = cur;
+  }
+  return out;
+}
+
+// Intervals of N where favored, from the grid start and crossings.
+function favoredIntervals(f, cross, nmin, nmax) {
+  const iv = [];
+  let start = f(nmin) > 1 ? nmin : null;
+  for (const c of cross) {
+    if (c.rising) start = c.hi;
+    else { iv.push([start === null ? nmin : start, c.lo]); start = null; }
+  }
+  if (start !== null) iv.push([start, nmax]);
+  return iv;
+}
+
+const fmtN = n => n.toLocaleString('en-US');
+function favoredText(iv, nmin, nmax) {
+  if (!iv.length) return `Tit-for-tat is not favored at any size on the chart (N = ${fmtN(nmin)} to ${fmtN(nmax)}).`;
+  if (iv.length === 1 && iv[0][0] === nmin && iv[0][1] === nmax) return `Tit-for-tat is favored at every size on the chart, from N = ${fmtN(nmin)} upward.`;
+  if (iv.length === 1 && iv[0][0] === iv[0][1]) return `Tit-for-tat is favored only at N = ${fmtN(iv[0][0])}.`;
+  // A range that reaches the chart's edge goes on past it (checked to N = 100,000 over 2,511 settings), so it reads "upward".
+  return 'Tit-for-tat is favored ' + iv.map(([s, e]) => (s === e ? `at N = ${fmtN(s)}` : e === nmax ? `from N = ${fmtN(s)} upward` : `from N = ${fmtN(s)} to ${fmtN(e)}`)).join(' and ') + '.';
+}
+
+const N_MIN = 2, N_MAX = 10000;
+// First favored N for a rising crossing, last favored N for a falling one (never a midpoint).
+const rep = c => (c.rising ? c.hi : c.lo);
+const fmtNum = v => String(+v.toFixed(2));
+const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+function fmtV(v) {
+  if (!isFinite(v)) return '–';
+  if (v >= 100) return v.toFixed(0);
+  if (v >= 10) return v.toFixed(1);
+  if (v >= 0.01) return v.toPrecision(3);
+  if (v <= 0) return '0';
+  const e = Math.floor(Math.log10(v));
+  return (v / Math.pow(10, e)).toFixed(1) + ' × 10' + String(e).split('').map(c => SUP[c]).join('');
+}
+
+// ---------- which card explains each crossing (pure: the combo audit runs this same code in Node) ----------
+const TV = '<i class="v">T</i>&nbsp;=&nbsp;', NV = '<i class="v">N</i>';
+const GROUP_WORDS = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const groupWord = k => GROUP_WORDS[k] || fmtN(k);
+// Fewest significant digits that keep a ratio on its own side of 1 (0.704 -> 0.7, 1.024 -> 1.02).
+function fmtRatio(v) {
+  if (v < 1e-4) return fmtV(v);
+  for (let p = 1; p <= 6; p++) { const s = +v.toPrecision(p); if (s !== 1 && (s < 1) === (v < 1)) return String(s); }
+  return String(v);
+}
+// Two percentages, with as many digits as it takes for them to differ (35% against 33%).
+function fmtPctPair(x, y) {
+  for (let p = 2; p <= 6; p++) { const a = +(100 * x).toPrecision(p), b = +(100 * y).toPrecision(p); if (a !== b) return [a + '%', b + '%']; }
+  return [100 * x + '%', 100 * y + '%'];
+}
+// Two scores to one decimal, or two if one decimal would make them look equal.
+function fmtPtsPair(x, y) {
+  const d = +x.toFixed(1) === +y.toFixed(1) ? 2 : 1;
+  return [String(+x.toFixed(d)), String(+y.toFixed(d))];
+}
+// Fewest whole groups of n at which tit-for-tat is favored (with r < 1 the group curve rises without limit);
+// Infinity when that is more than 2^21 groups (over a million).
+function groupsNeeded(n, parts) {
+  const v = k => groupNPfrom(k * n, n, parts);
+  let lo = 1, hi = 2;
+  while (v(hi) <= 1) { if (hi >= 2 ** 21) return Infinity; lo = hi; hi *= 2; }
+  while (hi - lo > 1) { const m = Math.floor((lo + hi) / 2); if (v(m) > 1) hi = m; else lo = m; }
+  return hi;
+}
+// Flip 3's card for groups of n: one group, then the fewest groups that favor tit-for-tat, then how groups switch.
+// cause names the flip that holds a lone tit-for-tat back inside one group.
+function flip3Text(n, s1, s2, T, cause, qualify) {
+  const parts = groupParts(n, s1, s2, T), r = Math.exp(parts.logr), k = groupsNeeded(n, parts);
+  const v = j => groupNPfrom(j * n, n, parts);
+  const own = (1 - r) / (1 - Math.pow(r, k));   // chance of taking all k groups once it holds one (neutral: 1/k)
+  let spread;
+  if (own >= 0.999) {
+    spread = k === 2 ? 'Once it wins one group it almost always wins the other, so its own chance stays the same while the neutral chance halves.'
+      : `Once it wins one group it almost always wins the others, so its own chance stays the same while the neutral chance is divided by ${k}.`;
+  } else {
+    const [p, q] = fmtPctPair(own, 1 / k);
+    spread = `Once it wins one group, it goes on to take ${k === 2 ? 'both' : 'all ' + groupWord(k)} groups ${p} of the time, against ${q} for a neutral mutation, so each added group cuts its chance by less than it cuts a neutral mutation’s.`;
+  }
+  // One defector among n-1 tit-for-tat: its average score and its neighbours' (the model's g and f at i = n-1).
+  const { a, d } = PAY, b = s2 ? d : PAY.b, c = T + 9;
+  const dE = s1 ? (c * (n - 1) + d) / n : c, tE = s1 ? (a * (n - 1) + b) / n : (a * (n - 2) + b) / (n - 1);
+  const [dP, tP] = fmtPtsPair(dE, tE);
+  const earn = dE < tE ? `earns ${dP} points a game to its neighbours’ ${tP} and ` : '';
+  const tail = r < 0.01 ? 'almost never takes over, so groups switch almost only one way.'
+    : 'takes over less often than a tit-for-tat migrant takes over a defector group, so groups switch more often toward tit-for-tat.';
+  return `Take groups of ${fmtN(n)} at ${TV}${fmtNum(T)}${qualify ? ', with both switches off' : ''}. ` +
+    `With one group, a new tit-for-tat is ${fmtRatio(v(1))} times as likely as a neutral mutation to take over, held back as in ${cause}. ` +
+    `With ${groupWord(k)} groups it is ${fmtRatio(v(k))} times as likely. ${spread} ` +
+    `Its migrants usually fail in a defector group, as in ${cause}, but now and then one succeeds. ` +
+    `A defector that migrates into a tit-for-tat group ${earn}${tail}`;
+}
+const TXT_S1 = 'With players able to meet themselves, a lone tit-for-tat sometimes plays its own kind instead of only rivals, so Flip 1 is gone.';
+const TXT_S2 = 'With round 1 free, a lone tit-for-tat earns 10 against a defector, the same as two defectors earn against each other, so being cheated no longer holds it back.';
+
+// cur: the curve as set; base: the same switches and T without groups; st: {s1, s2, T, g, n}.
+// A rise at one-group sizes (N <= n) is Flip 1 and a fall there is Flip 2; a rise above n is Flip 3, tit-for-tat
+// groups spreading. Above n the curve never falls through 1 (combo audit, 2026-11-05). A card whose flip is
+// missing says why (switch, temptation or group size); html null keeps the card's own text.
+function labelsFor(cur, base, st) {
+  const { s1, s2, T, g, n } = st;
+  const low = cur.cross.filter(c => c.part === 'low');
+  const flip1 = !s1 ? low.find(c => c.rising) : undefined;
+  const flip2 = !s2 ? low.find(c => !c.rising) : undefined;
+  const flip3 = cur.cross.find(c => c.part === 'group' && c.rising);
+  const bRise = base.cross.find(c => c.rising), bFall = base.cross.find(c => !c.rising);
+  const R = bRise && rep(bRise), F = bFall && rep(bFall);
+  const parts = g ? groupParts(n, s1, s2, T) : null;
+  const r = parts ? Math.exp(parts.logr) : NaN, oneWins = !!parts && n * parts.rhoA > 1;
+  const nn = fmtN(n), Tt = fmtNum(T);
+  const absentT = `At ${TV}${Tt}, tit-for-tat is not favored at any population size without groups` +
+    (s1 ? ', even when players can meet themselves.' : ': Flips 1 and 2 have moved together and met (from <i class="v">T</i> &asymp; 17.1).');
+
+  let t1, x1 = null;
+  if (flip1) t1 = `Flip 1 at N ≈ ${fmtN(rep(flip1))}: your partner is your rival`;
+  else if (s1) { t1 = 'Flip 1: removed (players meet themselves)'; x1 = TXT_S1; }
+  else if (!bRise) { t1 = `Flip 1: none at T = ${Tt}`; x1 = absentT; }
+  else {
+    t1 = `Flip 1: none in groups of ${nn}`;
+    x1 = `Without groups, Flip 1 comes at ${NV} &asymp; ${fmtN(R)}. Groups of ${nn} are smaller than that, so inside each group a lone tit-for-tat still plays only rivals and takes over its group less often than a neutral mutation would.`;
+  }
+
+  let t2, x2 = null;
+  if (flip2) t2 = `Flip 2 at N ≈ ${fmtN(rep(flip2))}: too rare to get going`;
+  else if (s2) { t2 = 'Flip 2: removed (round 1 free)'; x2 = TXT_S2; }
+  else if (!bFall) { t2 = `Flip 2: none at T = ${Tt}`; x2 = absentT; }
+  else {
+    t2 = `Flip 2: removed (groups of ${nn} with rare migration)`;
+    x2 = `Groups of ${nn} are smaller than the size where Flip 2 comes without groups (${NV} &asymp; ${fmtN(F)}), so a new tit-for-tat never has to spread through a large population on its own: it only has to win its own group. ` +
+      (r >= 1 ? 'But in groups this small, tit-for-tat groups do not spread (see Flip 3).'
+        : oneWins ? 'Tit-for-tat groups then spread to the others through migrants, so it stays favored at every larger size.'
+          : 'Tit-for-tat groups then spread to the others through migrants (see Flip 3).');
+  }
+
+  const causes = [!s1 && !(R <= n) ? 'Flip 1' : '', !s2 && !(F >= n) ? 'Flip 2' : ''].filter(Boolean);
+  const cause = causes.length === 2 ? 'Flips 1 and 2' : causes[0] || 'Flip 2';
+  let t3, x3;
+  if (flip3) {
+    t3 = `Flip 3 at N ≈ ${fmtN(rep(flip3))}: from one group to the rest`;
+    x3 = flip3Text(n, s1, s2, T, cause, false);
+  } else if (!g) {
+    t3 = 'Flip 3, with groups only: from one group to the rest';
+    x3 = flip3Text(2000, false, false, 5, 'Flip 2', s1 || s2);
+  } else if (r >= 1) {
+    t3 = `Flip 3: none in groups of ${nn}`;
+    x3 = `In groups of ${nn}, a defector migrant takes over a tit-for-tat group at least as often as a tit-for-tat migrant takes over a defector group, so tit-for-tat groups do not spread.`;
+  } else if (oneWins) {
+    t3 = `Flip 3: none in groups of ${nn}`;
+    x3 = `A new tit-for-tat already takes over its own group of ${nn} more often than a neutral mutation would, so above ${NV} = ${nn} it stays favored and there is no third flip.`;
+  } else {
+    const k = groupsNeeded(n, parts);
+    t3 = `Flip 3: beyond the chart (groups of ${nn})`;
+    x3 = `With one group of ${nn}, a new tit-for-tat is ${fmtRatio(n * parts.rhoA)} times as likely as a neutral mutation to take over. Tit-for-tat groups spread to the others more easily than defector groups do, so enough groups would favor it, but that takes ${isFinite(k) ? `${groupWord(k)} groups (${NV} = ${fmtN(k * n)})` : 'more than a million groups'}, past the chart’s edge.`;
+  }
+
+  // Shading: the partner-is-a-rival cause runs from N = 2 to Flip 1, or, in groups smaller than Flip 1's size,
+  // to Flip 3 (inside each group the partner is still a rival); it needs a Flip 1 without groups, so where the
+  // no-groups view shades nothing (T >= 17.1), groups add no shading. The too-rare cause runs from Flip 2 to the
+  // next rise.
+  const zones = [];
+  if (!s1 && bRise) zones.push({ k: 'A', N0: N_MIN, N1: flip1 ? rep(flip1) : flip3 ? rep(flip3) : N_MAX });
+  if (!s2) cur.cross.forEach((c, i) => {
+    if (c.rising) return;
+    const nxt = cur.cross.slice(i + 1).find(q => q.rising);
+    zones.push({ k: 'B', N0: rep(c), N1: nxt ? rep(nxt) : N_MAX });
+  });
+  const badge = c => (c === flip1 ? '1' : c === flip2 ? '2' : c === flip3 ? '3' : '?');
+  return { flip1, flip2, flip3, zones, badge, cause, r, oneWins,
+    cards: [{ title: t1, html: x1, on: !!flip1 }, { title: t2, html: x2, on: !!flip2 }, { title: t3, html: x3, on: !!flip3 }] };
+}
+
+
+(function () {
+  'use strict';
+  const Y_MIN = 0.01, Y_MAX = 100;
+  const KEY_N = [2, 3, 4, 5, 10, 20, 30, 50, 100, 200, 300, 500, 1000, 1733, 2000, 3000, 5000, 10000];
+  const GRID = makeGrid(200, N_MIN, N_MAX, KEY_N);
+  // Group size slider: smooth, on a log scale from 2 to 10,000 (1,000 slider steps).
+  const LN_NMIN = Math.log(2), LN_NMAX = Math.log(10000);
+  const nFromSlider = v => Math.round(Math.exp(LN_NMIN + (LN_NMAX - LN_NMIN) * v / 1000));
+  const sliderFromN = n => Math.round((Math.log(n) - LN_NMIN) / (LN_NMAX - LN_NMIN) * 1000);
+  const $ = s => document.querySelector(s);
+  const state = { s1: false, s2: false, T: 5, g: false, n: 5 };
+  const key = (s1, s2) => (s1 ? '1' : '0') + (s2 ? '1' : '0');
+
+  // ---------- curves ----------
+  const memo = f => { const m = new Map(); return N => { let v = m.get(N); if (v === undefined) { v = f(N); m.set(N, v); } return v; }; };
+  const cache = {};
+  // The no-group curve, memoized per (switches, T): the group curve reuses it below the group size.
+  const singleNP = (s1, s2, T) => cache['n@' + key(s1, s2) + '@' + T] ||= memo(N => nP(N, s1, s2, T));
+  function tft(s1, s2, T, grp) {
+    if (T === undefined) T = state.T;
+    if (grp === undefined) grp = state.g ? state.n : 0;
+    const k = key(s1, s2) + '@' + T + '@' + grp;
+    if (cache[k]) return cache[k];
+    if (Object.keys(cache).length > 40) for (const q in cache) delete cache[q];
+    let out;
+    if (!grp) {
+      const f = singleNP(s1, s2, T);
+      const cross = crossings(f, GRID).map(c => Object.assign(c, { part: 'low' }));
+      const iv = favoredIntervals(f, cross, N_MIN, N_MAX);
+      out = { f, ptsLow: GRID.map(N => [N, f(N)]), ptsGrp: [], cross, iv, text: favoredText(iv, N_MIN, N_MAX) };
+    } else {
+      const parts = groupParts(grp, s1, s2, T);
+      const single = singleNP(s1, s2, T);
+      const f = N => (N <= grp ? single(N) : groupNPfrom(N, grp, parts));
+      // N <= n: one group (Nowak's value). N > n: the group formula with the number of groups N/n treated as
+      // continuous, so the curve passes through every whole-group value and is smooth between them. Crossings,
+      // rings and the readout all come from this same curve.
+      const lowN = GRID.filter(N => N < grp).concat([grp]);
+      const cLow = crossings(single, lowN);
+      const hiN = [grp].concat(GRID.filter(N => N > grp));
+      const cHi = crossings(f, hiN);
+      const cross = cLow.map(c => Object.assign(c, { part: 'low' }))
+        .concat(cHi.map(c => Object.assign(c, { part: 'group' })));
+      const iv = favoredIntervals(f, cross, N_MIN, N_MAX);
+      const ptsGrp = hiN.map(N => [N, f(N)]);
+      out = { f, ptsLow: lowN.map(N => [N, single(N)]), ptsGrp, cross, iv, text: favoredText(iv, N_MIN, N_MAX) };
+    }
+    cache[k] = out;
+    return out;
+  }
+
+  // Badges, zones and cards for the current settings (labelsFor, above).
+  const labels = () => labelsFor(tft(state.s1, state.s2), tft(state.s1, state.s2, state.T, 0), state);
+
+  const Tof = () => Math.round(parseFloat($('#tft-T').value) * 100) / 100;
+  // A step sets an exact group size; moving the slider by hand returns to the slider's own value.
+  const Nof = () => { const e = $('#group-n'); return e.dataset.exact ? +e.dataset.exact : nFromSlider(parseFloat(e.value)); };
+  const fmtT = T => T.toFixed(2);
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = $('#chart'), wrap = $('#chart-wrap'), tip = $('#tip');
+  function el(tag, attrs, parent, text) {
+    const e = document.createElementNS(svgNS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  let G = null, hoverN = null, hoverNs = GRID;
+  const isSame = () => !state.s1 && !state.s2 && state.T === 5 && !state.g;
+
+  function draw() {
+    const W = Math.max(280, Math.floor(wrap.getBoundingClientRect().width));
+    const narrow = W < 540;
+    const H = Math.round(Math.min(460, Math.max(300, W * 0.6)));
+    const m = { l: narrow ? 44 : 56, r: narrow ? 10 : 16, t: 12, b: 46 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const lx0 = Math.log10(N_MIN), lx1 = Math.log10(N_MAX), ly0 = Math.log10(Y_MIN), ly1 = Math.log10(Y_MAX);
+    const X = N => m.l + (Math.log10(N) - lx0) / (lx1 - lx0) * iw;
+    const Y = v => m.t + (ly1 - Math.log10(Math.max(v, 1e-12))) / (ly1 - ly0) * ih;
+    G = { W, m, iw, ih, X, Y, lx0, lx1 };
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    svg.replaceChildren();
+    const defs = el('defs', {}, svg);
+    el('rect', { x: m.l, y: m.t, width: iw, height: ih }, el('clipPath', { id: 'plot-clip' }, defs));
+    el('rect', { x: m.l, y: m.t, width: iw, height: Y(1) - m.t, fill: 'var(--wash)' }, svg);
+
+    const cur = tft(state.s1, state.s2), ref = tft(false, false, 5, 0), same = isSame(), L = labels();
+    for (const z of L.zones) {
+      const x0 = X(z.N0), x1 = X(z.N1);
+      el('rect', { class: 'zone', x: x0, y: m.t, width: Math.max(0, x1 - x0), height: ih, fill: z.k === 'A' ? 'var(--zoneA)' : 'var(--zoneB)', 'fill-opacity': 0.2 }, svg);
+    }
+    const gGrid = el('g', {}, svg);
+    const tcol = { fill: 'var(--muted)', 'font-size': 12, 'font-family': 'var(--font-mono)' };
+    for (let e = -2; e <= 2; e++) {
+      const v = Math.pow(10, e), y = Y(v);
+      if (e !== 0) el('line', { x1: m.l, x2: m.l + iw, y1: y, y2: y, stroke: 'var(--hair)' }, gGrid);
+      el('text', Object.assign({ x: m.l - 8, y: y + 4, 'text-anchor': 'end' }, tcol), gGrid, String(v));
+    }
+    for (let e = 0; e <= 4; e++) for (let k = 1; k <= 9; k++) {
+      const N = k * Math.pow(10, e);
+      if (N < N_MIN || N > N_MAX) continue;
+      const x = X(N);
+      if (k === 1) el('line', { x1: x, x2: x, y1: m.t, y2: m.t + ih, stroke: 'var(--hair)' }, gGrid);
+      el('line', { x1: x, x2: x, y1: m.t + ih, y2: m.t + ih + (k === 1 ? 6 : 3), stroke: 'var(--axis)' }, gGrid);
+      if (k === 1 || N === 2) el('text', Object.assign({ x, y: m.t + ih + 20, 'text-anchor': 'middle' }, tcol), gGrid, fmtN(N));
+    }
+    el('line', { x1: m.l, x2: m.l + iw, y1: m.t + ih, y2: m.t + ih, stroke: 'var(--axis)' }, svg);
+    el('line', { x1: m.l, x2: m.l, y1: m.t, y2: m.t + ih, stroke: 'var(--axis)' }, svg);
+    el('text', { x: m.l + iw / 2, y: H - 6, 'text-anchor': 'middle', fill: 'var(--ink-2)', 'font-size': 13 }, svg, 'Population size, N');
+    const yLab = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: 'var(--ink-2)', 'font-size': 13, transform: `translate(${narrow ? 12 : 14},${m.t + ih / 2}) rotate(-90)` }, svg, 'Times as likely to take over as neutral');
+    if (yLab.getComputedTextLength() > ih - 8) yLab.textContent = 'Times as likely as neutral';
+    el('line', { x1: m.l, x2: m.l + iw, y1: Y(1), y2: Y(1), stroke: 'var(--ink-2)', 'stroke-width': 1.25 }, svg);
+    el('text', { x: m.l + 8, y: m.t + 18, fill: 'var(--muted)', 'font-size': 12, 'letter-spacing': '0.06em' }, svg, 'FAVORED');
+    el('text', { x: m.l + 8, y: m.t + ih - 10, fill: 'var(--muted)', 'font-size': 12, 'letter-spacing': '0.06em' }, svg, 'DISFAVORED');
+
+    const path = pts => pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(2) + ',' + Y(p[1]).toFixed(2)).join('');
+    const g = el('g', { 'clip-path': 'url(#plot-clip)' }, svg);
+    const ls = c => ({ fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+    el('path', Object.assign({ d: path(ref.ptsLow) }, ls('var(--ref)')), g);
+    el('path', Object.assign({ d: path(cur.ptsLow), class: 'cur-path' }, ls('var(--accent)')), g);
+    if (cur.ptsGrp.length > 1) el('path', Object.assign({ d: path(cur.ptsGrp), class: 'cur-path' }, ls('var(--accent)')), g);
+
+    const ring = (N, color) => el('circle', { cx: X(N), cy: Y(1), r: 4.5, fill: 'var(--surface)', stroke: color, 'stroke-width': 2 }, svg);
+    if (!same) ref.cross.forEach(c => ring(rep(c), 'var(--ref)'));
+    cur.cross.forEach(c => ring(rep(c), 'var(--accent)'));
+
+    // Badges: Flip 1 (1), Flip 2 (2), Flip 3 (3). Rising ones sit to the left of
+    // their ring, falling ones to the right; a badge within 24 px of the previous one goes below the line.
+    const items = cur.cross.map(c => {
+      const label = L.badge(c);
+      const x = X(rep(c));
+      return { label, x, bx: c.rising ? Math.max(m.l + 10, x - 14) : Math.min(m.l + iw - 10, x + 14), below: false };
+    }).sort((a, b) => a.bx - b.bx);
+    // Two badges pushed past each other (a falling ring just left of a rising one) sit over their own rings instead.
+    items.forEach((it, i) => { if (i && it.x < items[i - 1].x) { it.bx = it.x; items[i - 1].bx = items[i - 1].x; } });
+    items.sort((a, b) => a.bx - b.bx);
+    items.forEach((it, i) => { if (i && Math.abs(it.bx - items[i - 1].bx) < 24 && !items[i - 1].below) it.below = true; });
+    for (const it of items) {
+      const y = Y(1) + (it.below ? 15 : -15);
+      el('circle', { cx: it.bx, cy: y, r: 8, fill: 'var(--ink)' }, svg);
+      el('text', { x: it.bx, y: y + 4, 'text-anchor': 'middle', fill: 'var(--surface)', 'font-size': 11, 'font-weight': 700 }, svg, it.label);
+    }
+
+    const gh = el('g', { 'pointer-events': 'none' }, svg);
+    G.gh = gh;
+    const hit = el('rect', { x: m.l, y: m.t, width: iw, height: ih, fill: 'transparent' }, svg);
+    hit.addEventListener('pointermove', onPointer);
+    hit.addEventListener('pointerdown', onPointer);
+    hit.addEventListener('pointerleave', () => { hoverN = null; drawHover(); });
+    drawHover();
+  }
+
+  // ---------- hover ----------
+  function buildHoverNs() {
+    if (!state.g) return GRID;
+    return [...new Set(GRID.concat([state.n]))].sort((a, b) => a - b);
+  }
+  function snapN(N) {
+    N = Math.min(N_MAX, Math.max(N_MIN, N));
+    if (state.g && N <= state.n) return Math.max(N_MIN, Math.round(N));
+    const list = state.g ? buildHoverNs() : GRID;
+    return list.reduce((b, v) => (Math.abs(Math.log(v / N)) < Math.abs(Math.log(b / N)) ? v : b), list[0]);
+  }
+  const nearestIn = (list, N) => list.reduce((bi, v, i) => (Math.abs(Math.log(v / N)) < Math.abs(Math.log(list[bi] / N)) ? i : bi), 0);
+  function onPointer(ev) {
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) * (G.W / r.width);
+    hoverN = snapN(Math.pow(10, G.lx0 + (px - G.m.l) / G.iw * (G.lx1 - G.lx0)));
+    drawHover();
+  }
+  svg.addEventListener('keydown', ev => {
+    if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') {
+      const d = ev.key === 'ArrowRight' ? 1 : -1;
+      const i = hoverN === null ? nearestIn(hoverNs, 100) : Math.max(0, Math.min(hoverNs.length - 1, nearestIn(hoverNs, hoverN) + d));
+      hoverN = hoverNs[i]; drawHover(); ev.preventDefault();
+    } else if (ev.key === 'Escape') { hoverN = null; drawHover(); }
+  });
+  svg.addEventListener('focus', () => { if (hoverN === null) { hoverN = hoverNs[nearestIn(hoverNs, 100)]; drawHover(); } });
+  svg.addEventListener('blur', () => { hoverN = null; drawHover(); });
+
+  function tipRow(cls, value, name) {
+    const row = document.createElement('div'); row.className = 'row';
+    const k = document.createElement('span'); k.className = 'key ' + cls; k.style.width = '14px';
+    const b = document.createElement('b'); b.textContent = value;
+    const s = document.createElement('span'); s.textContent = name;
+    row.append(k, b, s);
+    return row;
+  }
+  function drawHover() {
+    if (!G || !G.gh) return;
+    G.gh.replaceChildren();
+    if (hoverN === null) { tip.hidden = true; return; }
+    const N = hoverN, x = G.X(N), cur = tft(state.s1, state.s2), same = isSame();
+    const rv = tft(false, false, 5, 0).f(N), cv = cur.f(N);
+    el('line', { x1: x, x2: x, y1: G.m.t, y2: G.m.t + G.ih, stroke: 'var(--ink-2)', opacity: 0.5 }, G.gh);
+    const rows = [[rv, 'var(--ref)']].concat(same || !isFinite(cv) ? [] : [[cv, 'var(--accent)']]);
+    for (const [v, c] of rows) if (v >= Y_MIN && v <= Y_MAX) el('circle', { cx: x, cy: G.Y(v), r: 4, fill: c, stroke: 'var(--surface)', 'stroke-width': 2 }, G.gh);
+    tip.replaceChildren();
+    const head = document.createElement('div'); head.className = 'tn';
+    head.textContent = !state.g ? 'N = ' + fmtN(N)
+      : N <= state.n ? `N = ${fmtN(N)}: one group (N ≤ ${fmtN(state.n)})`
+        : `N = ${fmtN(N)}: groups of ${fmtN(state.n)}`;
+    tip.append(head);
+    tip.append(tipRow('ref', fmtV(rv), same ? 'Nowak et al. 2004 (tit-for-tat)' : 'Nowak et al. 2004'));
+    if (!same && isFinite(cv)) tip.append(tipRow('acc', fmtV(cv), state.g ? 'tit-for-tat in groups of ' + fmtN(state.n) : 'tit-for-tat, as set'));
+    tip.hidden = false;
+    const scale = wrap.getBoundingClientRect().width / G.W, tw = tip.offsetWidth;
+    let left = x * scale + 14;
+    if (left + tw > wrap.clientWidth) left = x * scale - tw - 14;
+    tip.style.left = Math.max(0, left) + 'px';
+    tip.style.top = (G.m.t * scale + 6) + 'px';
+  }
+
+  // ---------- table (built only while its <details> is open) ----------
+  const tv = $('#tv');
+  function renderTV() {
+    const tb = $('#tbody'); tb.replaceChildren();
+    const ref = tft(false, false, 5, 0), cur = tft(state.s1, state.s2);
+    for (const N of KEY_N) {
+      const tr = document.createElement('tr');
+      [fmtN(N), fmtV(ref.f(N)), fmtV(cur.f(N))].forEach((t, i) => {
+        const td = document.createElement(i ? 'td' : 'th'); if (!i) td.scope = 'row';
+        td.textContent = t; tr.append(td);
+      });
+      tb.append(tr);
+    }
+  }
+  tv.addEventListener('toggle', () => { if (tv.open) renderTV(); });
+
+  // ---------- cards ----------
+  function renderCards() {
+    const L = labels();
+    L.cards.forEach((cd, i) => {
+      const k = i + 1, p = $(`#card${k}-text`);
+      if (!p.dataset.base) p.dataset.base = p.innerHTML;
+      p.innerHTML = cd.html === null ? p.dataset.base : cd.html;
+      $(`#card${k}-title`).textContent = cd.title;
+      $(`#card${k}`).classList.toggle('off', !cd.on);
+    });
+    document.querySelectorAll('.v-c').forEach(e => { e.textContent = fmtNum(state.T + 9); });
+    // The defector's gain from tit-for-tat's first move is T - 1; the share at which tit-for-tat starts to
+    // beat defectors is (d - b)/(a - b - c + d) = 1/(22 - T).
+    document.querySelectorAll('.v-gain').forEach(e => { e.textContent = fmtNum(state.T - 1); });
+    const bar = 22 - state.T;
+    document.querySelectorAll('.v-bar').forEach(e => { e.textContent = bar >= 1.5 ? `about 1 in ${Math.round(bar)}` : 'nearly all'; });
+  }
+
+  // ---------- steps ----------
+  const STEPS = {
+    1: { s1: false, s2: false, g: false, cap: "Tit-for-tat is favored only at middle sizes, so its curve crosses the line twice: Flip 1 near N = 4 and Flip 2 near N = 1,700." },
+    2: { s1: true, s2: false, g: false, cap: "Let players meet themselves (a modelling device, not biology) and Flip 1 disappears: a lone tit-for-tat then sometimes plays its own kind instead of only rivals. Flip 2 barely moves (N = 1,782 instead of 1,732)." },
+    3: { s1: false, s2: true, g: false, cap: "Make being cheated in round 1 cost tit-for-tat nothing, and Flip 2 disappears. That one round is what kept a rare tit-for-tat behind the defectors. Flip 1 barely moves (N = 3 instead of 4)." },
+    4: { s1: false, s2: false, g: true, n: 5, cap: "Split the population into groups of 5 that rarely exchange migrants, and Flip 2 disappears. A new tit-for-tat only has to take over its own group, and in a group of 5, two copies already earn more than the defectors." },
+    5: { s1: false, s2: false, g: true, n: 2000, cap: "Make the groups 2,000 strong and Flip 2 returns inside each group: a new tit-for-tat wins its own group only 0.7 times as often as a neutral mutation. But it then almost always takes the other groups too, so with two groups it is already 1.4 times as likely to take over. That is Flip 3, between N = 2,000 (one group) and 4,000 (two)." }
+  };
+  const NSTEPS = 5;
+  function markStep(i) {
+    for (let k = 1; k <= NSTEPS; k++) $('#step-' + k).setAttribute('aria-pressed', k === i ? 'true' : 'false');
+    $('#stepcap').textContent = i ? STEPS[i].cap : '';
+  }
+  function setStep(i) {
+    const s = STEPS[i];
+    state.s1 = s.s1; state.s2 = s.s2; state.g = s.g;
+    $('#sw-meet').checked = s.s1; $('#sw-free').checked = s.s2; $('#sw-groups').checked = s.g;
+    const n = s.n || 5, gn = $('#group-n');
+    $('#tft-T').value = 5; gn.value = sliderFromN(n); gn.dataset.exact = String(n);
+    svg.classList.add('anim');
+    markStep(i);
+    render();
+    setTimeout(() => svg.classList.remove('anim'), 320);
+  }
+  const clearStep = () => markStep(0);
+
+  // ---------- render ----------
+  function render() {
+    state.T = Tof();
+    state.n = Nof();
+    $('#tft-out').textContent = fmtT(state.T);
+    $('#tft-note').hidden = state.T <= 6;
+    $('#tft-T').setAttribute('aria-valuetext', 'T = ' + fmtT(state.T));
+    $('#group-n').disabled = !state.g;
+    $('#group-out').textContent = fmtN(state.n);
+    $('#group-n').setAttribute('aria-valuetext', 'n = ' + fmtN(state.n));
+    $('#leg-ref').textContent = isSame() ? 'Nowak et al. 2004 (grey; covered by the blue line until you change a setting)' : 'Nowak et al. 2004 (as published)';
+    const cur = tft(state.s1, state.s2);
+    hoverNs = buildHoverNs();
+    if (hoverN !== null) hoverN = snapN(hoverN);
+    renderCards();
+    $('#readout').textContent = cur.text;
+    draw();
+    if (tv.open) renderTV();
+  }
+  // One render per animation frame, however many input events arrive.
+  let pending = false;
+  const schedule = () => { if (pending) return; pending = true; requestAnimationFrame(() => { pending = false; render(); }); };
+  $('#sw-meet').addEventListener('change', e => { state.s1 = e.target.checked; clearStep(); schedule(); });
+  $('#sw-free').addEventListener('change', e => { state.s2 = e.target.checked; clearStep(); schedule(); });
+  $('#tft-T').addEventListener('input', () => { clearStep(); schedule(); });
+  $('#sw-groups').addEventListener('change', e => { state.g = e.target.checked; clearStep(); schedule(); });
+  $('#group-n').addEventListener('input', () => { delete $('#group-n').dataset.exact; clearStep(); schedule(); });
+  for (let k = 1; k <= NSTEPS; k++) $('#step-' + k).addEventListener('click', () => setStep(k));
+  let rt = null;
+  if (window.ResizeObserver) new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(draw, 40); }).observe(wrap);
+  window.__flips = { render, nFromSlider, sliderFromN, state };
+  markStep(1);
+  render();
+})();
+</script>
+</body>
+</html>
